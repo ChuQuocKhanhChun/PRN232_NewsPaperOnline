@@ -56,6 +56,11 @@ namespace PRN232_FinalProject.Services.Implement
         }
 
         public async Task<int> GetCountAsync() => await _repo.CountAsync();
+
+        public async Task<IEnumerable<ArticleDto>> GetByAuthorEmailAsync(string email)
+        {
+            return (IEnumerable<ArticleDto>)await _repo.GetByAuthorEmailAsync(email);
+        }
     }
 
 }

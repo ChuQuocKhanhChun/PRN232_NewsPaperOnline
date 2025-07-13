@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PRN232_FinalProject.DTO;
 using PRN232_FinalProject.Models;
+using PRN232_FinalProject.Repository.Interfaces;
 using PRN232_FinalProject.Services.Interfaces;
 
 namespace PRN232_FinalProject.Services.Implement

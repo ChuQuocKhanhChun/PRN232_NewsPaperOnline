@@ -1,0 +1,17 @@
+@model PRN232_FinalProject_Client.DTO.ArticleCreateDto
+<h2>Tạo bài báo mới</h2>
+<form asp-action="Create" method="post">
+    <div>
+        <label>Tiêu đề</label>
+        <input asp-for="Title" />
+    </div>
+    <div>
+        <label>Tóm tắt</label>
+        <input asp-for="Summary" />
+    </div>
+    <div>
+        <label>Nội dung</label>
+        <textarea asp-for="Content"></textarea>
+    </div>
+    <button type="submit">Tạo bài báo</button>
+</form> 

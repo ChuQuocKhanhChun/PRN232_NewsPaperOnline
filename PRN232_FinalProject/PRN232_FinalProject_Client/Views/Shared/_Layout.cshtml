@@ -5,14 +5,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PRN232_FinalProject_Client</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PRN232_FinalProject_Client.styles.css" asp-append-version="true" />
+    <style>
+        <style >
+        body {
+            background: #F9FAFB;
+            font-family: 'Noto Sans', sans-serif;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: 500;
+        }
+
+        .navbar-brand {
+            color: #4A90E2 !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: #333 !important;
+            transition: color 0.2s;
+        }
+
+            .nav-link:hover {
+                color: #0077b6 !important;
+                text-decoration: none;
+            }
+
+        .main-article {
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+        }
+
+            .main-article img {
+                width: 100%;
+                height: auto;
+                max-height: 360px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+
+        .main-article-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1A237E;
+            margin-top: 12px;
+        }
+
+            .main-article-title a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+                .main-article-title a:hover {
+                    color: #0077b6;
+                }
+
+        .sub-article,
+        .small-article {
+            background: #fff;
+            padding: 0.8rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+            .sub-article img {
+                height: 160px;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+
+        .sub-article-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 10px;
+        }
+
+            .sub-article-title a:hover {
+                color: #0077b6;
+            }
+
+        .small-article img {
+            height: 120px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .small-article-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #3e3e3e;
+            margin-top: 8px;
+        }
+
+            .small-article-title a:hover {
+                color: #0077b6;
+            }
+
+        .card-text {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        footer {
+            background-color: #f1f3f4;
+            padding: 20px 0;
+            text-align: center;
+            color: #777;
+        }
+
+            footer a {
+                color: #4A90E2;
+                text-decoration: none;
+            }
+
+                footer a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PRN232_FinalProject_Client</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Báo mới</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,10 +150,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Hot</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Article" asp-action="Index">Báo Online</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Auth" asp-action="Login">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Article" asp-action="Create">Tạo bài báo</a>
                         </li>
                     </ul>
                 </div>

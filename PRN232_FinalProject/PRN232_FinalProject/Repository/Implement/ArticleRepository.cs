@@ -42,6 +42,15 @@ namespace PRN232_FinalProject.Repository.Implement
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<IEnumerable<Article>> GetByAuthorEmailAsync(string email)
+        {
+            return await _context.Articles
+                .Include(a => a.Category)
+                .Include(a => a.Tags)
+                .Include(a => a.Author)
+                .Where(a => a.Author != null && a.Author.Email == email)
+                .ToListAsync();
+        }
 
         public async Task<IEnumerable<Article>> SearchAsync(string keyword)
         {
@@ -62,7 +71,10 @@ namespace PRN232_FinalProject.Repository.Implement
 
         public async Task<int> CountAsync() => await _context.Articles.CountAsync();
 
-        
+        public Task<object> UpdateAsync(Article article)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

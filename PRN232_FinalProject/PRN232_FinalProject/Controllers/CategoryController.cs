@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PRN232_FinalProject.DTO;
+using PRN232_FinalProject.Services.Interfaces;
 
 namespace PRN232_FinalProject.Controllers
 {
@@ -9,7 +11,7 @@ namespace PRN232_FinalProject.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _service;
-        public CategoriesController(ICategoryService service) => _service = service;
+        public CategoryController(ICategoryService service) => _service = service;
 
         [HttpGet]
         [AllowAnonymous]
@@ -27,7 +29,7 @@ namespace PRN232_FinalProject.Controllers
         public async Task<IActionResult> Create([FromBody] CategoryDto dto)
         {
             var created = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            return CreatedAtAction(nameof(GetById), new { id = created.CategoryId }, created);
         }
 
         [HttpPut("{id}")]

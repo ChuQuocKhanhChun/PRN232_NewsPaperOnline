@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN232_FinalProject", "PRN232_FinalProject\PRN232_FinalProject.csproj", "{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN232_FinalProject_Client", "PRN232_FinalProject_Client\PRN232_FinalProject_Client.csproj", "{C525F61F-EF40-412A-8543-FC8A990DB3CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C525F61F-EF40-412A-8543-FC8A990DB3CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C525F61F-EF40-412A-8543-FC8A990DB3CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C525F61F-EF40-412A-8543-FC8A990DB3CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C525F61F-EF40-412A-8543-FC8A990DB3CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

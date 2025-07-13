@@ -1,8 +1,139 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<PRN232_FinalProject_Client.DTO.ArticleDto>
+@{
+    ViewData["Title"] = "Trang chủ báo online";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div class="container mt-5">
+    
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 mb-4">
+                <div class="card p-3 shadow-sm">
+                    <h5 class="fw-bold mb-3">Filter Articles</h5>
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                    {
+                        <div class="mb-3">
+                            <label for="tag" class="form-label">Tag</label>
+                            <select name="tag" id="tag" class="form-select">
+                                <option value="">All</option>
+                                @foreach (var tag in ViewBag.Tags as List<string>)
+                                {
+                                    if (ViewBag.CurrentTag == tag)
+                                    {
+                                        <option value="@tag" selected>@tag</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@tag">@tag</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="publishDate" class="form-label">Publish Date</label>
+                            <input type="date" name="publishDate" id="publishDate" class="form-control" value="@ViewBag.CurrentPublishDate" />
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary w-100">Apply Filters</button>
+                    }
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                {
+                    <div class="input-group mb-4">
+                        <input type="text" name="search" class="form-control" placeholder="Search articles by name..." value="@ViewBag.CurrentSearch" />
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                }
+                <h1 class="display-5 mb-4 fw-bold text-primary">Tin mới nhất</h1>
+
+                <div class="row">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        <!-- FEATURED ARTICLE -->
+                        <div class="col-md-12 mb-5">
+                            <div class="card border-0 shadow-lg">
+                                <a href="@Url.Action("Details", "Article", new { id = Model[0].Id })">
+                                    <img src="@(string.IsNullOrEmpty(Model[0].ImageUrl) ? "/images/default-news.jpg" : Model[0].ImageUrl)" class="card-img-top" style="height: 400px; object-fit: cover;" />
+                                </a>
+                                <div class="card-body">
+                                    <h2 class="card-title text-dark fw-bold">
+                                        <a href="@Url.Action("Details", "Article", new { id = Model[0].Id })" class="text-decoration-none text-dark">@Model[0].Title</a>
+                                    </h2>
+                                    <p class="card-text text-muted">@Model[0].Summary</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECONDARY ARTICLES -->
+                        <div class="col-md-6">
+                            @if (Model.Count > 1)
+                            {
+                                var a = Model[1];
+                                <div class="card border-0 mb-4 shadow-sm h-100">
+                                    <a href="@Url.Action("Details", "Article", new { id = a.Id })">
+                                        <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "/images/default-news.jpg" : a.ImageUrl)" class="card-img-top" style="height: 250px; object-fit: cover;" />
+                                    </a>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="@Url.Action("Details", "Article", new { id = a.Id })" class="text-dark text-decoration-none">@a.Title</a>
+                                        </h5>
+                                        <p class="card-text text-muted">@a.Summary</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            @if (Model.Count > 2)
+                            {
+                                var a = Model[2];
+                                <div class="card border-0 mb-4 shadow-sm h-100">
+                                    <a href="@Url.Action("Details", "Article", new { id = a.Id })">
+                                        <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "/images/default-news.jpg" : a.ImageUrl)" class="card-img-top" style="height: 250px; object-fit: cover;" />
+                                    </a>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="@Url.Action("Details", "Article", new { id = a.Id })" class="text-dark text-decoration-none">@a.Title</a>
+                                        </h5>
+                                        <p class="card-text text-muted">@a.Summary</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- OTHER ARTICLES -->
+                        <h3 class="mt-5 fw-bold">Các tin khác</h3>
+                        <div class="row mt-3">
+                            @for (int i = 3; i < Model.Count; i++)
+                            {
+                                var a = Model[i];
+                                <div class="col-md-4 mb-4">
+                                    <div class="card border-0 shadow-sm h-100">
+                                        <a href="@Url.Action("Details", "Article", new { id = a.Id })">
+                                            <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "/images/default-news.jpg" : a.ImageUrl)" class="card-img-top" style="height: 200px; object-fit: cover;" />
+                                        </a>
+                                        <div class="card-body">
+                                            <h6 class="card-title fw-semibold">
+                                                <a href="@Url.Action("Details", "Article", new { id = a.Id })" class="text-dark text-decoration-none">@a.Title</a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-info">Không có bài báo nào được đăng.</div>
+                        </div>
+                    }
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    

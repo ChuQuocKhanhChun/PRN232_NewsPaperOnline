@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using PRN232_FinalProject.DTO;
+using PRN232_FinalProject.Repository.Interfaces;
+using PRN232_FinalProject.Services.Interfaces;
 
 namespace PRN232_FinalProject.Services.Implement
 {
@@ -13,9 +16,9 @@ namespace PRN232_FinalProject.Services.Implement
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllAsync() => _mapper.Map<IEnumerable<UserDto>>(await _repo.GetAllAsync());
+        public async Task<IEnumerable<UserProfileDto>> GetAllAsync() => _mapper.Map<IEnumerable<UserProfileDto>>(await _repo.GetAllAsync());
 
-        public async Task<UserDto?> GetByIdAsync(string id) => _mapper.Map<UserDto>(await _repo.GetByIdAsync(id));
+        public async Task<UserProfileDto?> GetByIdAsync(string id) => _mapper.Map<UserProfileDto>(await _repo.GetByIdAsync(id));
 
         public async Task<bool> DeleteAsync(string id) => await _repo.DeleteAsync(id);
     }

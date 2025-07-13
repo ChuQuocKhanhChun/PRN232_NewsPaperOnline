@@ -13,8 +13,9 @@ namespace PRN232_FinalProject.Repository.Interfaces
         Task<IEnumerable<Article>> SearchAsync(string keyword);
         Task<IEnumerable<Article>> GetByCategoryAsync(int categoryId);
         Task<IEnumerable<Article>> GetRecentAsync(int count);
-        
+        Task<IEnumerable<Article>> GetByAuthorEmailAsync(string email);
         Task<int> CountAsync();
+        Task<object> UpdateAsync(Article article);
     }
 
 }

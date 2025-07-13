@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PRN232_FinalProject.Models;
+using PRN232_FinalProject.Repository.Interfaces;
 
 namespace PRN232_FinalProject.Repository.Implement
 {

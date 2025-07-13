@@ -14,6 +14,7 @@ namespace PRN232_FinalProject.Services.Interfaces
         Task<IEnumerable<ArticleDto>> GetRecentAsync(int count);
         Task<ArticleDto?> UpdateStatusAsync(int id, string status);
         Task<int> GetCountAsync();
+        Task<IEnumerable<ArticleDto>> GetByAuthorEmailAsync(string email);
     }
 
 }

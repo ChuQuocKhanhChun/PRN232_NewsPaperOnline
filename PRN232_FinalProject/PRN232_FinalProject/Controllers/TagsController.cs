@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PRN232_FinalProject.DTO;
+using PRN232_FinalProject.Services.Interfaces;
 
 namespace PRN232_FinalProject.Controllers
 {

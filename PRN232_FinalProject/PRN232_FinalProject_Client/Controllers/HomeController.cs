@@ -1,22 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
 using PRN232_FinalProject_Client.Models;
+using PRN232_FinalProject_Client.Services;
+using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace PRN232_FinalProject_Client.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ArticleService _articleService;
+        public HomeController(ArticleService articleService)
         {
-            _logger = logger;
+            _articleService = articleService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string search, string tag, DateTime? publishDate)
         {
-            return View();
+            var articles = await _articleService.GetFilteredArticlesAsync(search, tag, publishDate);
+            var tags = await _articleService.GetAllTagsAsync();
+            ViewBag.Tags = tags;
+            ViewBag.CurrentSearch = search;
+            ViewBag.CurrentTag = tag;
+            ViewBag.CurrentPublishDate = publishDate?.ToString("yyyy-MM-dd");
+            return View(articles);
         }
+
 
         public IActionResult Privacy()
         {
