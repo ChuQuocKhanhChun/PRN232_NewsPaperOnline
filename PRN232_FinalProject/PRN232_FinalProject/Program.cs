@@ -1,11 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using PRN232_FinalProject.Identity;
 using PRN232_FinalProject.Models;
 using PRN232_FinalProject.Repository.Implement;
 using PRN232_FinalProject.Repository.Interfaces;
+using PRN232_FinalProject.SeedData;
 using PRN232_FinalProject.Services.Implement;
 using PRN232_FinalProject.Services.Interfaces;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +25,34 @@ builder.Services.AddControllers(
     
     );
 // If you're using Razor Views (optional)
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 // Register DbContext
 builder.Services.AddDbContext<Prn232FinalProjectContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyCnn")));
+//Register Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<Prn232FinalProjectContext>()
+    .AddDefaultTokenProviders();
+//Authentication and Authorization JWT
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+    };
+});
 
 // Register DI for Repository and Service
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
@@ -31,6 +60,13 @@ builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddSwaggerGen();
 // Build app
 var app = builder.Build();
+//Seed database with initial data
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await DbInitializer.SeedAsync(services);
+}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -45,7 +81,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers(); // For API controllers including OData

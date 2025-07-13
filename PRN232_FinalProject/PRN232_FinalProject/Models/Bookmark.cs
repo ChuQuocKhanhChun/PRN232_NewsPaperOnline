@@ -1,11 +1,12 @@
-﻿using System;
+﻿using PRN232_FinalProject.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace PRN232_FinalProject.Models;
 
 public partial class Bookmark
 {
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public int ArticleId { get; set; }
 
@@ -13,5 +14,5 @@ public partial class Bookmark
 
     public virtual Article Article { get; set; } = null!;
 
-    public virtual User User { get; set; } = null!;
+    public virtual ApplicationUser User { get; set; }
 }

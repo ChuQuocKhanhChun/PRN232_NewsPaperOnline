@@ -13,8 +13,8 @@ namespace PRN232_FinalProject.Repository.Interfaces
         Task<IEnumerable<Article>> SearchAsync(string keyword);
         Task<IEnumerable<Article>> GetByCategoryAsync(int categoryId);
         Task<IEnumerable<Article>> GetRecentAsync(int count);
-        Task<Article?> UpdateStatusAsync(int id, string status);
-        Task<int> GetCountAsync();
+        
+        Task<int> CountAsync();
     }
 
 }

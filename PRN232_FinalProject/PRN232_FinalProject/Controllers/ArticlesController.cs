@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using PRN232_FinalProject.DTO;
 using PRN232_FinalProject.Services.Interfaces;
@@ -7,6 +8,7 @@ namespace PRN232_FinalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] // Yêu cầu xác thực JWT cho tất cả các action
     public class ArticlesController : ControllerBase
     {
         private readonly IArticleService _service;
@@ -18,10 +20,12 @@ namespace PRN232_FinalProject.Controllers
 
         [HttpGet]
         [EnableQuery]
+        [AllowAnonymous] // Cho phép truy cập không cần token (ví dụ để xem bài viết công khai)
         public async Task<IActionResult> GetAll() =>
             Ok(await _service.GetAllAsync());
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var article = await _service.GetByIdAsync(id);
@@ -29,12 +33,15 @@ namespace PRN232_FinalProject.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Staff")] // Chỉ Admin hoặc Staff mới được tạo bài viết
         public async Task<IActionResult> Create([FromBody] ArticleDto dto)
         {
             var created = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = created.ArticleID }, created);
         }
+
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Update(int id, [FromBody] ArticleDto dto)
         {
             var updated = await _service.UpdateAsync(id, dto);
@@ -42,6 +49,7 @@ namespace PRN232_FinalProject.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _service.DeleteAsync(id);
@@ -49,6 +57,7 @@ namespace PRN232_FinalProject.Controllers
         }
 
         [HttpGet("search")]
+        [AllowAnonymous]
         public async Task<IActionResult> Search([FromQuery] string keyword)
         {
             var articles = await _service.SearchAsync(keyword);
@@ -56,6 +65,7 @@ namespace PRN232_FinalProject.Controllers
         }
 
         [HttpGet("category/{categoryId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetByCategory(int categoryId)
         {
             var articles = await _service.GetByCategoryAsync(categoryId);
@@ -63,6 +73,7 @@ namespace PRN232_FinalProject.Controllers
         }
 
         [HttpGet("recent")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetRecent([FromQuery] int count = 10)
         {
             var articles = await _service.GetRecentAsync(count);
@@ -70,9 +81,9 @@ namespace PRN232_FinalProject.Controllers
         }
 
         [HttpPatch("{id}/status")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] string status)
         {
-            // Kiểm tra giá trị status hợp lệ
             var validStatuses = new[] { "Draft", "Published", "Archived", "Pending" };
             if (!validStatuses.Contains(status))
             {
@@ -84,11 +95,11 @@ namespace PRN232_FinalProject.Controllers
         }
 
         [HttpGet("count")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetCount()
         {
             var count = await _service.GetCountAsync();
             return Ok(new { Count = count });
         }
     }
-
 }

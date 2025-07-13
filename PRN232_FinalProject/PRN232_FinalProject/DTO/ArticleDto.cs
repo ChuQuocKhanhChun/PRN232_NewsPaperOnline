@@ -4,11 +4,16 @@
     {
         public int ArticleID { get; set; }
         public string Title { get; set; }
-        public string? Content { get; set; }
-        public DateTime? PublishedDate { get; set; }
-        public string? Status { get; set; }
-        public int AuthorId { get; set; } 
+        public string Content { get; set; }
+        public string Status { get; set; } // Published, Draft, Archived, Pending
+        public DateTime CreatedAt { get; set; }
+
         public int CategoryId { get; set; }
+        public string CategoryName { get; set; } // optional, useful for display
+
+        public List<int> TagIds { get; set; } = new();
+        public List<string> TagNames { get; set; } = new();
     }
+
 
 }

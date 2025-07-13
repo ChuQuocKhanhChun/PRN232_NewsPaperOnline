@@ -7,7 +7,7 @@
         public string? Content { get; set; }
         public DateTime? PublishedDate { get; set; }
         public string? Status { get; set; }
-        public int AuthorId { get; set; }
+        public string AuthorId { get; set; }
         public int CategoryId { get; set; }
         public DateTime? CreateAt { get; set; }
     }

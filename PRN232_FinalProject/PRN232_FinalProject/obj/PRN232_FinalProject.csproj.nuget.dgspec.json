@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PRN232\\PRN232_FinalProject\\PRN232_FinalProject\\PRN232_FinalProject.csproj": {}
+    "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\PRN232_FinalProject.csproj": {}
   },
   "projects": {
-    "D:\\PRN232\\PRN232_FinalProject\\PRN232_FinalProject\\PRN232_FinalProject.csproj": {
+    "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\PRN232_FinalProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PRN232\\PRN232_FinalProject\\PRN232_FinalProject\\PRN232_FinalProject.csproj",
+        "projectUniqueName": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\PRN232_FinalProject.csproj",
         "projectName": "PRN232_FinalProject",
-        "projectPath": "D:\\PRN232\\PRN232_FinalProject\\PRN232_FinalProject\\PRN232_FinalProject.csproj",
+        "projectPath": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\PRN232_FinalProject.csproj",
         "packagesPath": "C:\\Users\\Win11\\.nuget\\packages\\",
-        "outputPath": "D:\\PRN232\\PRN232_FinalProject\\PRN232_FinalProject\\obj\\",
+        "outputPath": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -53,6 +53,14 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.18, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.18, )"
             },
             "Microsoft.AspNetCore.OData": {
               "target": "Package",

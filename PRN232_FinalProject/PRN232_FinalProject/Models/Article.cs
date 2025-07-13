@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRN232_FinalProject.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace PRN232_FinalProject.Models;
@@ -19,7 +20,7 @@ public partial class Article
 
     public int? Views { get; set; }
 
-    public int AuthorId { get; set; }
+    public string AuthorId { get; set; }
 
     public int CategoryId { get; set; }
 
@@ -33,7 +34,7 @@ public partial class Article
 
     public virtual ICollection<ArticleLike> ArticleLikes { get; set; } = new List<ArticleLike>();
 
-    public virtual User Author { get; set; } = null!;
+    public virtual ApplicationUser Author { get; set; }
 
     public virtual ICollection<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
 
