@@ -1,10 +1,11 @@
-﻿using PRN232_FinalProject.Models;
+﻿using PRN232_FinalProject.DTO;
+using PRN232_FinalProject.Models;
 
 namespace PRN232_FinalProject.Repository.Interfaces
 {
     public interface IArticleRepository
     {
-        Task<IEnumerable<Article>> GetAllAsync();
+        Task<IEnumerable<ArticleDto>> GetAllAsync();
         Task<Article?> GetByIdAsync(int id);
         Task<Article> CreateAsync(Article article);
 

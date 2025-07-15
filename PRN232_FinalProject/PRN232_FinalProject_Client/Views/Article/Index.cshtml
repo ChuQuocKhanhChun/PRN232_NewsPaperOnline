@@ -5,10 +5,10 @@
 @foreach (var article in Model)
 {
     <li>
-        <a href="@Url.Action("Details", "Article", new { id = article.Id })">
+        <a href="@Url.Action("Details", "Article", new { id = article.ArticleID })">
             @article.Title
         </a>
-        <p>@article.Summary</p>
+        <p>@article.Content</p>
     </li>
 }
 </ul> 

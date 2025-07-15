@@ -1,15 +1,23 @@
-﻿namespace PRN232_FinalProject_Client.DTO
+﻿using PRN232_FinalProject.Identity;
+
+namespace PRN232_FinalProject_Client.DTO
 {
     public class ArticleDto
     {
-        public int Id { get; set; }
+        public int ArticleID { get; set; }
         public string Title { get; set; }
-        public string Summary { get; set; }
-        public string Content { get; set; }
-        public string ImageUrl { get; set; }
+        public string Content { get; set; } 
+        public string Status { get; set; } // Published, Draft, Archived, Pending
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? PublishedDate { get; set; }
+        public string ? ImageUrl { get; set; } // Optional, for article images
+        public string AuthorId { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
-        // Add these properties for filtering
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; } // optional, useful for display
+
+        public List<int> TagIds { get; set; } = new();
         public List<string> TagNames { get; set; } = new();
-        public DateTime CreatedAt { get; set; }
     }
 }

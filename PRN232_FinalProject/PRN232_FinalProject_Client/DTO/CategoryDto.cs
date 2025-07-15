@@ -1,4 +1,4 @@
-﻿namespace PRN232_FinalProject.DTO
+﻿namespace PRN232_FinalProject_Client.DTO
 {
     public class CategoryDto
     {

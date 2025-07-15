@@ -7,6 +7,6 @@ namespace PRN232_FinalProject.Repository.Interfaces
     {
         Task<(bool Success, IEnumerable<string>? Errors)> RegisterAsync(RegisterDto dto);
         Task<(string? Token, DateTime? Expiration, string? ErrorMessage)> LoginAsync(LoginDto dto);
-        Task<object?> GetProfileAsync(ClaimsPrincipal user);
+        Task<UserProfileDto?> GetProfileAsync(string email);
     }
 }

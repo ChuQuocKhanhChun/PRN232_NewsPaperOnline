@@ -224,7 +224,6 @@ D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\De
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\System.Composition.TypedParts.dll
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\System.Drawing.Common.dll
-D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\System.Formats.Asn1.dll
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\System.Memory.Data.dll
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\System.Runtime.Caching.dll
@@ -311,12 +310,6 @@ D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\De
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets.build.json
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets.development.json
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets\msbuild.PRN232_FinalProject.Microsoft.AspNetCore.StaticWebAssets.props
-D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets\msbuild.PRN232_FinalProject.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets\msbuild.build.PRN232_FinalProject.props
-D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.PRN232_FinalProject.props
-D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.PRN232_FinalProject.props
-D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets.pack.json
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\PRN232_F.6FAFD6EF.Up2Date
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\PRN232_FinalProject.dll
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\refint\PRN232_FinalProject.dll
@@ -325,3 +318,8 @@ D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\De
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\ref\PRN232_FinalProject.dll
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\rjimswa.dswa.cache.json
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets.build.json.cache

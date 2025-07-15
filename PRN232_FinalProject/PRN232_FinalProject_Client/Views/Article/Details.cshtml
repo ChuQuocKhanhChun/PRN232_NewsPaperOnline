@@ -1,5 +1,95 @@
 @model PRN232_FinalProject_Client.DTO.ArticleDto
+@{
+    ViewData["Title"] = Model.Title;
+    var relatedArticles = ViewBag.RelatedArticles as List<PRN232_FinalProject_Client.DTO.ArticleDto>;
+    var comments = ViewBag.Comments as List<string>; // Adjust type as needed
+}
 
-<h2>@Model.Title</h2>
-<p>@Model.Content</p>
-<a href="@Url.Action("Index", "Article")">Quay lại danh sách</a> 
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-lg p-4">
+                <!-- Thứ tự bài báo -->
+                <div class="text-muted small mb-1">#@Model.ArticleID</div>
+                <!-- Tag -->    
+                @if (Model.TagNames != null && Model.TagNames.Any())
+                {
+                    <div class="mb-2">
+                        <span class="fw-bold small">Tags:</span>
+                        @foreach (var tag in Model.TagNames)
+                        {
+                            <span class="badge bg-secondary me-1">@tag</span>
+                        }
+                    </div>
+                }
+                <!-- Title -->
+                <h1 class="fw-bold text-dark mb-2">@Model.Title</h1>
+                <!-- Author name -->
+                <div class="mb-3 text-muted">
+                    Tác giả: <span class="fw-semibold">@Model.Author?.FullName</span>
+                </div>
+                <!-- Ảnh -->
+                <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/default-news.jpg" : Model.ImageUrl)" class="card-img-top mb-4" style="height: 400px; object-fit: cover;" />
+                <!-- Content -->
+                <div class="fs-5 text-dark mb-4">
+                    @Model.Content
+                </div>
+            </div>
+
+            <!-- Related articles -->
+            <div class="card border-0 shadow-sm mt-4 p-3">
+                <h5 class="fw-bold mb-3">Bài báo liên quan</h5>
+                @if (relatedArticles != null && relatedArticles.Any())
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var article in relatedArticles)
+                        {
+                            <li class="list-group-item px-0">
+                                <a href="@Url.Action("Details", "Article", new { id = article.ArticleID })" class="text-decoration-none">
+                                    @article.Title
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="text-muted">Không có bài báo liên quan.</div>
+                }
+            </div>
+
+            <!-- Comments section -->
+            <div class="card border-0 shadow-sm mt-4 p-3">
+                <h5 class="fw-bold mb-3">Bình luận</h5>
+                @if (comments != null && comments.Any())
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var comment in comments)
+                        {
+                            <li class="list-group-item px-0">@comment</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="text-muted">Chưa có bình luận nào.</div>
+                }
+                <!-- Add comment form (optional) -->
+                <form method="post" asp-action="AddComment" asp-route-id="@Model.ArticleID" class="mt-3">
+                    <div class="mb-2">
+                        <textarea name="content" class="form-control" rows="2" placeholder="Viết bình luận..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Gửi bình luận</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm mb-4">
+                <h5 class="fw-bold mb-3">Tin tức khác</h5>
+                <a href="@Url.Action("Index", "Home")" class="btn btn-outline-primary w-100">← Trở về Trang chủ</a>
+            </div>
+        </div>
+    </div>
+</div>

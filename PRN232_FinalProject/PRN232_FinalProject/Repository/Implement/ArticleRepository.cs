@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PRN232_FinalProject.DTO;
 using PRN232_FinalProject.Models;
 using PRN232_FinalProject.Repository.Interfaces;
 using System;
@@ -14,7 +15,22 @@ namespace PRN232_FinalProject.Repository.Implement
             _context = context;
         }
 
-        public async Task<IEnumerable<Article>> GetAllAsync() => await _context.Articles.Include(a => a.Category).Include(a => a.Tags).ToListAsync();
+        public async Task<IEnumerable<ArticleDto>> GetAllAsync() => (IEnumerable<ArticleDto>)await _context.Articles
+    .Include(a => a.Tags)
+    .Select(a => new ArticleDto
+    {
+        ArticleID = a.ArticleId,
+        Title = a.Title,
+        Content = a.Content,
+        Status = a.Status,
+        CreatedAt = a.CreatedAt,
+        CategoryId = a.CategoryId,
+        CategoryName = a.Category.Name,
+        TagIds = a.Tags.Select(t => t.TagId).ToList(),
+        TagNames = a.Tags.Select(t => t.Name).ToList(),
+    }).ToListAsync()
+    ;
+
 
         public async Task<Article?> GetByIdAsync(int id) => await _context.Articles.Include(a => a.Category).Include(a => a.Tags).FirstOrDefaultAsync(x => x.ArticleId == id);
 

@@ -7,7 +7,6 @@ namespace PRN232_FinalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,Staff")]
     public class TagsController : ControllerBase
     {
         private readonly ITagService _service;
@@ -26,6 +25,12 @@ namespace PRN232_FinalProject.Controllers
         {
             var result = await _service.DeleteAsync(id);
             return result ? NoContent() : NotFound();
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var tag = await _service.GetByIdAsync(id);
+            return tag == null ? NotFound() : Ok(tag);
         }
     }
 }

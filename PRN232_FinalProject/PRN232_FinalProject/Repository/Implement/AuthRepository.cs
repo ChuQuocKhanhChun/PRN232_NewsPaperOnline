@@ -71,19 +71,18 @@ namespace PRN232_FinalProject.Repository.Implement
             return (new JwtSecurityTokenHandler().WriteToken(token), token.ValidTo, null);
         }
 
-        public async Task<object?> GetProfileAsync(ClaimsPrincipal userPrincipal)
+        public async Task<UserProfileDto?> GetProfileAsync(string email)
         {
-            var email = userPrincipal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
             if (string.IsNullOrEmpty(email)) return null;
 
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null) return null;
 
-            return new
+            return new UserProfileDto
             {
-                user.Email,
-                user.FullName,
-                Roles = await _userManager.GetRolesAsync(user)
+                Email = user.Email,
+                FullName = user.FullName,
+                Roles = (await _userManager.GetRolesAsync(user)).ToList()
             };
         }
     }

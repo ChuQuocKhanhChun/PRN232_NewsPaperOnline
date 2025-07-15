@@ -1,4 +1,5 @@
-﻿@model List<PRN232_FinalProject_Client.DTO.ArticleDto>
+﻿@using PRN232_FinalProject_Client.DTO
+@model List<PRN232_FinalProject_Client.DTO.ArticleDto>
 @{
     ViewData["Title"] = "Trang chủ báo online";
 }
@@ -10,32 +11,53 @@
             <!-- Sidebar -->
             <div class="col-md-3 mb-4">
                 <div class="card p-3 shadow-sm">
-                    <h5 class="fw-bold mb-3">Filter Articles</h5>
+                    <h5 class="fw-bold mb-3">Bộ lọc</h5>
                     @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                     {
                         <div class="mb-3">
-                            <label for="tag" class="form-label">Tag</label>
+                            <label for="tag" class="form-label">Nhãn hiệu</label>
                             <select name="tag" id="tag" class="form-select">
-                                <option value="">All</option>
-                                @foreach (var tag in ViewBag.Tags as List<string>)
+                                <option value="0">Tất cả</option>
+                                @foreach (var tag in ViewBag.Tags as List<TagDto>)
                                 {
-                                    if (ViewBag.CurrentTag == tag)
+                                    if (ViewBag.CurrentTag == tag.TagId)
                                     {
-                                        <option value="@tag" selected>@tag</option>
+                                        <option value="@tag.TagId" selected>@tag.Name</option>
                                     }
                                     else
                                     {
-                                        <option value="@tag">@tag</option>
+                                        <option value="@tag.TagId">@tag.Name</option>
                                     }
                                 }
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="publishDate" class="form-label">Publish Date</label>
+                            <label for="publishDate" class="form-label">Ngày đăng</label>
                             <input type="date" name="publishDate" id="publishDate" class="form-control" value="@ViewBag.CurrentPublishDate" />
                         </div>
-                        <button type="submit" class="btn btn-outline-primary w-100">Apply Filters</button>
+                        <button type="submit" class="btn btn-outline-primary w-100">Áp bộ lọc</button>
                     }
+                </div>
+                <div class="card p-3 shadow-sm mt-3">
+                    <!-- ...category list as above... -->
+                    <h5 class="fw-bold mb-3">Danh mục</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0 py-1">
+                            <a href="@Url.Action("Index", "Home", new { category = (int?)null, tag = ViewBag.CurrentTag, publishDate = ViewBag.CurrentPublishDate, search = ViewBag.CurrentSearch })"
+                               class="@(ViewBag.CurrentCategory == null ? "fw-bold text-primary" : "")">
+                                Tất cả
+                            </a>
+                        </li>
+                        @foreach (var cat in ViewBag.Categories as List<CategoryDto>)
+                        {
+                            <li class="list-group-item px-0 py-1">
+                                <a href="@Url.Action("Index", "Home", new { category = cat.CategoryId, tag = ViewBag.CurrentTag, publishDate = ViewBag.CurrentPublishDate, search = ViewBag.CurrentSearch })"
+                                   class="@(ViewBag.CurrentCategory == cat.CategoryId ? "fw-bold text-primary" : "")">
+                                    @cat.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
 
@@ -44,8 +66,8 @@
                 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                 {
                     <div class="input-group mb-4">
-                        <input type="text" name="search" class="form-control" placeholder="Search articles by name..." value="@ViewBag.CurrentSearch" />
-                        <button class="btn btn-primary" type="submit">Search</button>
+                        <input type="text" name="search" class="form-control" placeholder="Tìm bài báo..." value="@ViewBag.CurrentSearch" />
+                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                     </div>
                 }
                 <h1 class="display-5 mb-4 fw-bold text-primary">Tin mới nhất</h1>
@@ -56,14 +78,14 @@
                         <!-- FEATURED ARTICLE -->
                         <div class="col-md-12 mb-5">
                             <div class="card border-0 shadow-lg">
-                                <a href="@Url.Action("Details", "Article", new { id = Model[0].Id })">
+                                <a href="@Url.Action("Details", "Article", new { id = Model[0].ArticleID })">
                                     <img src="@(string.IsNullOrEmpty(Model[0].ImageUrl) ? "/images/default-news.jpg" : Model[0].ImageUrl)" class="card-img-top" style="height: 400px; object-fit: cover;" />
                                 </a>
                                 <div class="card-body">
                                     <h2 class="card-title text-dark fw-bold">
-                                        <a href="@Url.Action("Details", "Article", new { id = Model[0].Id })" class="text-decoration-none text-dark">@Model[0].Title</a>
+                                        <a href="@Url.Action("Details", "Article", new { id = Model[0].ArticleID })" class="text-decoration-none text-dark">@Model[0].Title</a>
                                     </h2>
-                                    <p class="card-text text-muted">@Model[0].Summary</p>
+                                    <p class="card-text text-muted">@Model[0].Content</p>
                                 </div>
                             </div>
                         </div>
@@ -74,14 +96,14 @@
                             {
                                 var a = Model[1];
                                 <div class="card border-0 mb-4 shadow-sm h-100">
-                                    <a href="@Url.Action("Details", "Article", new { id = a.Id })">
+                                    <a href="@Url.Action("Details", "Article", new { id = a.ArticleID })">
                                         <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "/images/default-news.jpg" : a.ImageUrl)" class="card-img-top" style="height: 250px; object-fit: cover;" />
                                     </a>
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            <a href="@Url.Action("Details", "Article", new { id = a.Id })" class="text-dark text-decoration-none">@a.Title</a>
+                                            <a href="@Url.Action("Details", "Article", new { id = a.ArticleID })" class="text-dark text-decoration-none">@a.Title</a>
                                         </h5>
-                                        <p class="card-text text-muted">@a.Summary</p>
+                                        <p class="card-text text-muted">@a.Content</p>
                                     </div>
                                 </div>
                             }
@@ -91,14 +113,14 @@
                             {
                                 var a = Model[2];
                                 <div class="card border-0 mb-4 shadow-sm h-100">
-                                    <a href="@Url.Action("Details", "Article", new { id = a.Id })">
+                                    <a href="@Url.Action("Details", "Article", new { id = a.ArticleID })">
                                         <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "/images/default-news.jpg" : a.ImageUrl)" class="card-img-top" style="height: 250px; object-fit: cover;" />
                                     </a>
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            <a href="@Url.Action("Details", "Article", new { id = a.Id })" class="text-dark text-decoration-none">@a.Title</a>
+                                            <a href="@Url.Action("Details", "Article", new { id = a.ArticleID })" class="text-dark text-decoration-none">@a.Title</a>
                                         </h5>
-                                        <p class="card-text text-muted">@a.Summary</p>
+                                        <p class="card-text text-muted">@a.Content</p>
                                     </div>
                                 </div>
                             }
@@ -112,12 +134,12 @@
                                 var a = Model[i];
                                 <div class="col-md-4 mb-4">
                                     <div class="card border-0 shadow-sm h-100">
-                                        <a href="@Url.Action("Details", "Article", new { id = a.Id })">
+                                        <a href="@Url.Action("Details", "Article", new { id = a.ArticleID })">
                                             <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "/images/default-news.jpg" : a.ImageUrl)" class="card-img-top" style="height: 200px; object-fit: cover;" />
                                         </a>
                                         <div class="card-body">
                                             <h6 class="card-title fw-semibold">
-                                                <a href="@Url.Action("Details", "Article", new { id = a.Id })" class="text-dark text-decoration-none">@a.Title</a>
+                                                <a href="@Url.Action("Details", "Article", new { id = a.ArticleID })" class="text-dark text-decoration-none">@a.Title</a>
                                             </h6>
                                         </div>
                                     </div>

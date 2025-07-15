@@ -15,16 +15,23 @@ namespace PRN232_FinalProject_Client.Controllers
             _articleService = articleService;
         }
 
-        public async Task<IActionResult> Index(string search, string tag, DateTime? publishDate)
+        public async Task<IActionResult> Index(string search, int category, int tag, DateTime? publishDate)
         {
-            var articles = await _articleService.GetFilteredArticlesAsync(search, tag, publishDate);
+            var articles = await _articleService.GetFilteredArticlesAsync(search, category, tag, publishDate);
+
             var tags = await _articleService.GetAllTagsAsync();
+            var categories = await _articleService.GetAllCategoriesAsync();
+
             ViewBag.Tags = tags;
             ViewBag.CurrentSearch = search;
+            ViewBag.CurrentCategory = category;
             ViewBag.CurrentTag = tag;
             ViewBag.CurrentPublishDate = publishDate?.ToString("yyyy-MM-dd");
+            ViewBag.Categories = categories;
+
             return View(articles);
         }
+
 
 
         public IActionResult Privacy()
