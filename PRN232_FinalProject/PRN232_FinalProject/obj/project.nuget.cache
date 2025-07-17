@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cnqVSjmVy6E=",
+  "dgSpecHash": "CmFbiS1GoUQ=",
   "success": true,
   "projectFilePath": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\PRN232_FinalProject.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,9 @@
     "C:\\Users\\Win11\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\Win11\\.nuget\\packages\\bouncycastle.cryptography\\2.5.1\\bouncycastle.cryptography.2.5.1.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Win11\\.nuget\\packages\\mailkit\\4.13.0\\mailkit.4.13.0.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.18\\microsoft.aspnetcore.authentication.jwtbearer.8.0.18.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.18\\microsoft.aspnetcore.cryptography.internal.8.0.18.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.18\\microsoft.aspnetcore.cryptography.keyderivation.8.0.18.nupkg.sha512",
@@ -57,6 +59,7 @@
     "C:\\Users\\Win11\\.nuget\\packages\\microsoft.spatial\\8.2.3\\microsoft.spatial.8.2.3.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\Win11\\.nuget\\packages\\mimekit\\4.13.0\\mimekit.4.13.0.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\8.1.2\\swashbuckle.aspnetcore.swagger.8.1.2.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\8.1.2\\swashbuckle.aspnetcore.swaggergen.8.1.2.nupkg.sha512",
@@ -85,6 +88,7 @@
     "C:\\Users\\Win11\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\system.security.cryptography.cng\\5.0.0\\system.security.cryptography.cng.5.0.0.nupkg.sha512",
+    "C:\\Users\\Win11\\.nuget\\packages\\system.security.cryptography.pkcs\\8.0.1\\system.security.cryptography.pkcs.8.0.1.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
     "C:\\Users\\Win11\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",

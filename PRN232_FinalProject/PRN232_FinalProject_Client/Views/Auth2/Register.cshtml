@@ -1,0 +1,58 @@
+@model PRN232_FinalProject_Client.DTO.RegisterDto
+
+
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 500px;">
+        <h3 class="text-center mb-4 text-success">Đăng ký tài khoản</h3>
+
+        <form asp-action="Register" method="post">
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label">Tên đăng nhập</label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" type="email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="FullName" class="form-label">Họ và tên</label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Mật khẩu</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ConfirmPassword" class="form-label">Nhập lại mật khẩu</label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+           
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success">Đăng ký</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="@Url.Action("Login", "Auth")">Đã có tài khoản? Đăng nhập</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {  
+    @Html.Partial("_ValidationScriptsPartial")  
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+}

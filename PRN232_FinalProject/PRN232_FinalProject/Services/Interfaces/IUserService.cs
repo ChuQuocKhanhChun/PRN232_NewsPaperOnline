@@ -7,5 +7,6 @@ namespace PRN232_FinalProject.Services.Interfaces
         Task<IEnumerable<UserProfileDto>> GetAllAsync();
          Task<UserProfileDto?> GetByIdAsync(string id);
         Task<bool> DeleteAsync(string id);
+        Task<bool> ResetPasswordAsync(ResetPasswordDto dto);
     }
 }

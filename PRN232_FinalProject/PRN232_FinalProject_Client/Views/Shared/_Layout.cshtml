@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -158,9 +159,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Article" asp-action="Index">Báo Online</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Auth" asp-action="Login">Đăng nhập</a>
-                        </li>
+                        @{
+                            var fullName = HttpContextAccessor.HttpContext?.Session.GetString("FullName");
+                        }
+                        @if (!string.IsNullOrEmpty(fullName))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
+                                    👋 Hello, @fullName
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="User" asp-action="Profile">Tài khoản cá nhân</a></li>
+                                    <li><a class="dropdown-item text-danger" asp-controller="Auth2" asp-action="Logout">Đăng xuất</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Auth2" asp-action="Login">Đăng nhập</a>
+                            </li>
+                        }
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Article" asp-action="Create">Tạo bài báo</a>
                         </li>

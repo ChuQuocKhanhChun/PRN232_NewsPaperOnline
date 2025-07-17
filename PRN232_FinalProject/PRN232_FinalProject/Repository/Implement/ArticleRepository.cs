@@ -32,7 +32,7 @@ namespace PRN232_FinalProject.Repository.Implement
     ;
 
 
-        public async Task<Article?> GetByIdAsync(int id) => await _context.Articles.Include(a => a.Category).Include(a => a.Tags).FirstOrDefaultAsync(x => x.ArticleId == id);
+        public async Task<Article?> GetByIdAsync(int id) => await _context.Articles.Include(a => a.Category).Include(a => a.Tags).Include(a => a.Author).FirstOrDefaultAsync(x => x.ArticleId == id);
 
         public async Task<Article> CreateAsync(Article article)
         {

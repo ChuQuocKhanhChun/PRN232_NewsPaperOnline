@@ -1,0 +1,43 @@
+@model PRN232_FinalProject_Client.DTO.LoginDto
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4 text-primary">Đăng nhập hệ thống</h3>
+
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Nhập email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Mật khẩu</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Nhập mật khẩu" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Đăng nhập</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <span>Chưa có tài khoản?</span>
+            <a href="@Url.Action("Register", "Auth2")" class="text-decoration-none">Đăng ký ngay</a>
+        </div>
+        <a asp-action="ForgotPassword" asp-controller="Auth2">Quên mật khẩu?</a>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

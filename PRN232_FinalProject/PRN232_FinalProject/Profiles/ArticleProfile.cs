@@ -12,9 +12,15 @@ namespace PRN232_FinalProject.Profiles
         {
             // Article ↔ ArticleDto
             CreateMap<Article, ArticleDto>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
-                .ReverseMap()
-                .ForMember(dest => dest.Category, opt => opt.Ignore()); // Avoid circular reference
+            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+            .ForMember(dest => dest.TagIds, opt => opt.MapFrom(src => src.Tags.Select(t => t.TagId)))
+            .ForMember(dest => dest.TagNames, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name)))
+            .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author))
+            .ReverseMap()
+            .ForMember(dest => dest.Category, opt => opt.Ignore())
+            .ForMember(dest => dest.Tags, opt => opt.Ignore())
+            .ForMember(dest => dest.Author, opt => opt.Ignore());
+
 
             // Category ↔ CategoryDto
             CreateMap<Category, CategoryDto>().ReverseMap();

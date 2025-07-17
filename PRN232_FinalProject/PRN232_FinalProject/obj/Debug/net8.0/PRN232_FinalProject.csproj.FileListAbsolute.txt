@@ -323,3 +323,8 @@ D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\De
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\MailKit.dll
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\MimeKit.dll
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\Github1\PRN232_NewsPaperOnline\PRN232_FinalProject\PRN232_FinalProject\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

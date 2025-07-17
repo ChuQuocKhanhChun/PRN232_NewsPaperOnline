@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PRN232_FinalProject.Identity;
 using PRN232_FinalProject.Models;
 using PRN232_FinalProject.Repository.Interfaces;
@@ -8,10 +9,11 @@ namespace PRN232_FinalProject.Repository.Implement
     public class UserRepository : IUserRepository
     {
         private readonly Prn232FinalProjectContext _context;
-
-        public UserRepository(Prn232FinalProjectContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public UserRepository(Prn232FinalProjectContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IEnumerable<ApplicationUser>> GetAllAsync() => await _context.Users.ToListAsync();
@@ -26,6 +28,11 @@ namespace PRN232_FinalProject.Repository.Implement
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<ApplicationUser> GetByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
+
     }
 
 }

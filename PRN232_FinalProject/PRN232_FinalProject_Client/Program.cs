@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient<PRN232_FinalProject_Client.Services.ArticleService>();
 builder.Services.AddHttpClient<PRN232_FinalProject_Client.Services.AuthService>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 
 var app = builder.Build();

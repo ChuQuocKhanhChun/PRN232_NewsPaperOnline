@@ -9,8 +9,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="card border-0 shadow-lg p-4">
-                <!-- Thứ tự bài báo -->
-                <div class="text-muted small mb-1">#@Model.ArticleID</div>
+                
                 <!-- Tag -->    
                 @if (Model.TagNames != null && Model.TagNames.Any())
                 {
@@ -29,7 +28,7 @@
                     Tác giả: <span class="fw-semibold">@Model.Author?.FullName</span>
                 </div>
                 <!-- Ảnh -->
-                <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/default-news.jpg" : Model.ImageUrl)" class="card-img-top mb-4" style="height: 400px; object-fit: cover;" />
+                <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/default-news.png" : Model.ImageUrl)" class="card-img-top mb-4" style="height: 400px; object-fit: cover;" />
                 <!-- Content -->
                 <div class="fs-5 text-dark mb-4">
                     @Model.Content

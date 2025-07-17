@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PRN232_FinalProject.DTO;
 using PRN232_FinalProject.Identity;
@@ -14,15 +15,22 @@ namespace PRN232_FinalProject.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
-    {
+    {   private readonly IUserService _user2Service;
+        private readonly IEmailService _emailService;
         private readonly IAuthService _authService;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public AuthController(IAuthService authService,
-                              SignInManager<ApplicationUser> signInManager)
+                              SignInManager<ApplicationUser> signInManager,
+                              IEmailService emailService,
+                              UserManager<ApplicationUser> userManager, IUserService userService)
         {
             _authService = authService;
             _signInManager = signInManager;
+            _emailService = emailService;
+            _userManager = userManager;
+            _user2Service = userService;
         }
 
         [HttpPost("register")]
@@ -33,18 +41,17 @@ namespace PRN232_FinalProject.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto dto)
+        public async Task<IActionResult> Login(LoginDto dto)
         {
-            try
+            var result = await _authService.LoginAsync(dto);
+            if (result == null)
             {
-                var token = await _authService.LoginAsync(dto);
-                return Ok(new { token });
+                return BadRequest("Login failed.");
             }
-            catch (Exception ex)
-            {
-                return Unauthorized(ex.Message);
-            }
+
+            return Ok(new { token = result }); // <-- Trả 200 OK đúng cách
         }
+
 
         [HttpPost("logout")]
         [Authorize]
@@ -64,6 +71,36 @@ namespace PRN232_FinalProject.Controllers
             var profile = await _authService.GetProfileAsync(email);
             return profile == null ? NotFound("User not found") : Ok(profile);
         }
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
+        {
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+            if (user == null)
+            {
+                return BadRequest("Email không tồn tại trong hệ thống.");
+            }
 
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var encodedToken = System.Web.HttpUtility.UrlEncode(token);
+
+            var resetLink = $"https://localhost:7030/Auth2/ResetPassword?email={dto.Email}&token={encodedToken}";
+
+
+            // Gửi email (ví dụ: thông qua SmtpClient hoặc service gửi mail)
+            await _emailService.SendEmailAsync(dto.Email, "Đặt lại mật khẩu", $"Click vào liên kết sau để đặt lại mật khẩu: <a href=\"{resetLink}\">Reset Password</a>");
+
+            return Ok("Email đặt lại mật khẩu đã được gửi.");
+        }
+
+
+        // POST: api/auth/reset-password
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
+        {
+            var success = await _user2Service.ResetPasswordAsync(dto);
+            if (!success) return BadRequest("Không thể đặt lại mật khẩu. Token sai hoặc email không đúng.");
+
+            return Ok("Đặt lại mật khẩu thành công.");
+        }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PRN232_FinalProject.DTO;
 using PRN232_FinalProject.Identity;
 using PRN232_FinalProject.Models;
 using PRN232_FinalProject.Repository.Implement;
@@ -21,9 +22,7 @@ builder.Services.AddControllers()
         opt.Select().Filter().OrderBy().Expand().SetMaxTop(100).Count());
 // Đăng ký AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddControllers(
-    
-    );
+
 // If you're using Razor Views (optional)
 builder.Services.AddControllers();
 
@@ -53,9 +52,11 @@ builder.Services.AddAuthentication(options =>
             Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
     };
 });
+// Register Email Settings
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // Register DI for Repository and Service
-builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
@@ -68,6 +69,7 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+
 builder.Services.AddSwaggerGen();
 // Build app
 var app = builder.Build();

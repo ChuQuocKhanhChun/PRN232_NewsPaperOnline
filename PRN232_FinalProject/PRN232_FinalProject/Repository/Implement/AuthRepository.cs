@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Crypto.Generators;
 using PRN232_FinalProject.DTO;
 using PRN232_FinalProject.Identity;
+using PRN232_FinalProject.Models;
 using PRN232_FinalProject.Repository.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,17 +14,19 @@ namespace PRN232_FinalProject.Repository.Implement
 {
     public class AuthRepository: IAuthRepository
     {
+        private readonly Prn232FinalProjectContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
 
         public AuthRepository(UserManager<ApplicationUser> userManager,
                               SignInManager<ApplicationUser> signInManager,
-                              IConfiguration configuration)
+                              IConfiguration configuration,Prn232FinalProjectContext prn232Final)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _context = prn232Final;
         }
 
         public async Task<(bool Success, IEnumerable<string>? Errors)> RegisterAsync(RegisterDto dto)
@@ -71,19 +76,9 @@ namespace PRN232_FinalProject.Repository.Implement
             return (new JwtSecurityTokenHandler().WriteToken(token), token.ValidTo, null);
         }
 
-        public async Task<UserProfileDto?> GetProfileAsync(string email)
+        public Task<UserProfileDto?> GetProfileAsync(string email)
         {
-            if (string.IsNullOrEmpty(email)) return null;
-
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null) return null;
-
-            return new UserProfileDto
-            {
-                Email = user.Email,
-                FullName = user.FullName,
-                Roles = (await _userManager.GetRolesAsync(user)).ToList()
-            };
+            throw new NotImplementedException();
         }
     }
 }
