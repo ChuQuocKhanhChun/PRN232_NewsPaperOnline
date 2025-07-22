@@ -20,17 +20,19 @@ namespace PRN232_FinalProject.Controllers
         private readonly IAuthService _authService;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ICloudinaryService _cloudinaryService;
 
         public AuthController(IAuthService authService,
                               SignInManager<ApplicationUser> signInManager,
                               IEmailService emailService,
-                              UserManager<ApplicationUser> userManager, IUserService userService)
+                              UserManager<ApplicationUser> userManager, IUserService userService, ICloudinaryService cloudinaryService)
         {
             _authService = authService;
             _signInManager = signInManager;
             _emailService = emailService;
             _userManager = userManager;
             _user2Service = userService;
+            _cloudinaryService = cloudinaryService;
         }
 
         [HttpPost("register")]
@@ -65,12 +67,52 @@ namespace PRN232_FinalProject.Controllers
         [Authorize]
         public async Task<IActionResult> GetProfile()
         {
-            var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            if (string.IsNullOrEmpty(email)) return Unauthorized("Missing email claim");
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound("Người dùng không tồn tại.");
+            }
 
-            var profile = await _authService.GetProfileAsync(email);
-            return profile == null ? NotFound("User not found") : Ok(profile);
+            var roles = await _userManager.GetRolesAsync(user);
+            var profile = new UserProfileDto
+            {
+                Email = user.Email,
+                FullName = user.FullName, // Ensure ApplicationUser has this property
+                Roles = roles.ToList(),
+                Image = user.Image, // Ensure ApplicationUser has this property
+            };
+
+            return Ok(profile);
         }
+        [Authorize]
+        [HttpPut("update-profile")]
+        public async Task<IActionResult> UpdateProfile([FromForm] UpdateUserProfileDto dto)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return NotFound();
+
+            // Upload image if present
+            if (dto.ImageFile != null && dto.ImageFile.Length > 0)
+            {
+                var imageUrl = await _cloudinaryService.UploadImageAsync(dto.ImageFile);
+                user.Image = imageUrl;
+            }
+
+            user.FullName = dto.FullName ?? user.FullName;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded) return BadRequest(result.Errors);
+
+            return Ok(new { message = "Profile updated", image = user.Image });
+        }
+        public class UpdateUserProfileDto
+        {
+            public string FullName { get; set; }
+            public IFormFile? ImageFile { get; set; }
+        }
+
+
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
         {
@@ -80,27 +122,56 @@ namespace PRN232_FinalProject.Controllers
                 return BadRequest("Email không tồn tại trong hệ thống.");
             }
 
+            // 1. Sinh mật khẩu random
+            var newPassword = GenerateRandomPassword(10); // 10 ký tự
+            Console.WriteLine($"Mật khẩu mới: {newPassword}");
+
+            // 2. Tạo token và đổi mật khẩu
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var encodedToken = System.Web.HttpUtility.UrlEncode(token);
+            Console.WriteLine($"Token: {token}");
+            var resetResult = await _userManager.ResetPasswordAsync(user, token, newPassword);
 
-            var resetLink = $"https://localhost:7030/Auth2/ResetPassword?email={dto.Email}&token={encodedToken}";
+            if (!resetResult.Succeeded)
+            {
+                return BadRequest("Không thể đặt lại mật khẩu. Vui lòng thử lại sau.");
+            }
 
+            // 3. Gửi mật khẩu mới qua email
+            var emailBody = $"Mật khẩu mới của bạn là: <b>{newPassword}</b>. Vui lòng đăng nhập và đổi lại mật khẩu!";
+            await _emailService.SendEmailAsync(dto.Email, "Mật khẩu mới", emailBody);
 
-            // Gửi email (ví dụ: thông qua SmtpClient hoặc service gửi mail)
-            await _emailService.SendEmailAsync(dto.Email, "Đặt lại mật khẩu", $"Click vào liên kết sau để đặt lại mật khẩu: <a href=\"{resetLink}\">Reset Password</a>");
-
-            return Ok("Email đặt lại mật khẩu đã được gửi.");
+            return Ok("Mật khẩu mới đã được gửi tới email của bạn.");
         }
 
-
-        // POST: api/auth/reset-password
-        [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
+        // Hàm sinh mật khẩu random
+        private string GenerateRandomPassword(int length)
         {
-            var success = await _user2Service.ResetPasswordAsync(dto);
-            if (!success) return BadRequest("Không thể đặt lại mật khẩu. Token sai hoặc email không đúng.");
+            const string lower = "abcdefghijklmnopqrstuvwxyz";
+            const string upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string digits = "0123456789";
+            const string special = "!@#$%^&*";
+            const string allChars = lower + upper + digits + special;
 
-            return Ok("Đặt lại mật khẩu thành công.");
+            var random = new Random();
+            var password = new StringBuilder();
+
+            // Đảm bảo có ít nhất 1 ký tự từ mỗi loại
+            password.Append(lower[random.Next(lower.Length)]);
+            password.Append(upper[random.Next(upper.Length)]);
+            password.Append(digits[random.Next(digits.Length)]);
+            password.Append(special[random.Next(special.Length)]);
+
+            // Điền các ký tự còn lại
+            for (int i = 4; i < length; i++)
+            {
+                password.Append(allChars[random.Next(allChars.Length)]);
+            }
+
+            // Xáo trộn mật khẩu
+            return new string(password.ToString().OrderBy(_ => random.Next()).ToArray());
         }
+
+
+       
     }
 }

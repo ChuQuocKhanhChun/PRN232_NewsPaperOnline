@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PRN232_FinalProject_Client.DTO;
 using PRN232_FinalProject_Client.JWTHelper;
 using PRN232_FinalProject_Client.Services;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PRN232_FinalProject_Client.Controllers
@@ -33,9 +36,32 @@ namespace PRN232_FinalProject_Client.Controllers
 
                 if (tokenResponse != null && !string.IsNullOrEmpty(tokenResponse.Token))
                 {
-                    _httpContextAccessor.HttpContext.Session.SetString("JWT", tokenResponse.Token);
-
+                    // Lấy FullName từ token
                     var fullName = JwtHelper.GetClaimFromToken(tokenResponse.Token, "FullName");
+                    var userId = JwtHelper.GetClaimFromToken(tokenResponse.Token, ClaimTypes.NameIdentifier);
+                    // Lưu vào ClaimsPrincipal
+                    var claims = new List<Claim>
+                {
+                    new Claim("access_token", tokenResponse.Token)
+                };
+                    if (!string.IsNullOrEmpty(fullName))
+                    {
+                        claims.Add(new Claim(ClaimTypes.Name, fullName));
+                    }
+                    if (!string.IsNullOrEmpty(userId))
+                    {
+                        claims.Add(new Claim(ClaimTypes.NameIdentifier, userId)); // 👈 Thêm UserId vào claim
+                    }
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, new AuthenticationProperties
+                    {
+                        IsPersistent = false // Không lưu cookie sau khi đóng trình duyệt
+                    });
+
+                    // Lưu vào Session
+                    _httpContextAccessor.HttpContext.Session.SetString("JWT", tokenResponse.Token);
                     if (!string.IsNullOrEmpty(fullName))
                     {
                         _httpContextAccessor.HttpContext.Session.SetString("FullName", fullName);
@@ -84,7 +110,12 @@ namespace PRN232_FinalProject_Client.Controllers
             return RedirectToAction("Login");
         }
 
-
+        public IActionResult AccessDeny()
+        {
+            // Hiển thị thông báo truy cập bị từ chối
+            ViewBag.ErrorMessage = "Bạn không có quyền truy cập vào trang này.";
+            return View("AccessDenied", "Bạn không có quyền xem hồ sơ này.");
+        }
         public IActionResult Logout()
         {
             _httpContextAccessor.HttpContext?.Session.Remove("JWT");
@@ -102,59 +133,32 @@ namespace PRN232_FinalProject_Client.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDto dto)
         {
-            if (!ModelState.IsValid) return View(dto);
+            if (!ModelState.IsValid)
+            {
+                return View(dto);
+            }
 
             try
             {
                 var result = await _authService.ForgotPasswordAsync(dto);
-                if (result.Success) // Accessing the 'Success' property explicitly
+                if (result.Success)
                 {
-                    ViewBag.Message = result.Message; // Accessing the 'Message' property explicitly
+                    // Chuyển hướng đến trang đăng nhập khi thành công
+                    return RedirectToAction("Login", "Auth2"); // Điều chỉnh tên action/controller nếu cần
                 }
                 else
                 {
                     ModelState.AddModelError("Email", result.Message);
+                    return View(dto);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "Lỗi hệ thống khi gửi yêu cầu. Thử lại sau.");
+                ModelState.AddModelError("", $"Lỗi hệ thống khi gửi yêu cầu: {ex.Message}");
+                return View(dto);
             }
-
-            return View(dto);
-        }
-        [HttpGet]
-        public IActionResult ResetPassword(string email, string token)
-        {
-            var model = new ResetPasswordDto
-            {
-                Email = email,
-                Token = token
-            };
-
-            return View(model);
         }
 
-
-        [HttpPost]
-        public async Task<IActionResult> ResetPassword(ResetPasswordDto model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // Accessing the 'Success' property explicitly
-            var result = await _authService.ResetPasswordAsync(model);
-
-            if (result.Success) // Fixing the implicit conversion issue
-            {
-                return RedirectToAction("ResetPasswordConfirmation");
-            }
-
-            ModelState.AddModelError("", "Đặt lại mật khẩu thất bại.");
-            return View(model);
-        }
 
 
     }

@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.27.6, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.13.0, )"

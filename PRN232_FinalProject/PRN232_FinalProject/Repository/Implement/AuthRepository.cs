@@ -54,8 +54,10 @@ namespace PRN232_FinalProject.Repository.Implement
 
             var userRoles = await _userManager.GetRolesAsync(user);
             var authClaims = new List<Claim>
-            {
+            {   
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Name, user.UserName),
+                new Claim("image", user.Image ?? ""),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("FullName", user.FullName ?? ""),
                 new Claim(ClaimTypes.Email, user.Email ?? "")

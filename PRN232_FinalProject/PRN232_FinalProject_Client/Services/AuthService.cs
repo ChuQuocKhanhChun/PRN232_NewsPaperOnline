@@ -51,17 +51,7 @@ namespace PRN232_FinalProject_Client.Services
             var error = await response.Content.ReadAsStringAsync();
             return (false, error);
         }
-        public async Task<(bool Success, string Message)> ResetPasswordAsync(ResetPasswordDto dto)
-        {
-            var response = await _httpClient.PostAsJsonAsync("https://localhost:7083/api/auth2/reset-password", dto);
-            if (response.IsSuccessStatusCode)
-            {
-                return (true, "Đặt lại mật khẩu thành công.");
-            }
-
-            var error = await response.Content.ReadAsStringAsync();
-            return (false, error);
-        }
+       
 
     }
 } 

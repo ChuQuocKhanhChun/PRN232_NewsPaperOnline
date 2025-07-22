@@ -1262,6 +1262,44 @@
         }
       }
     },
+    "/api/Auth/update-profile": {
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "FullName": {
+                    "type": "string"
+                  },
+                  "ImageFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "FullName": {
+                  "style": "form"
+                },
+                "ImageFile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/forgot-password": {
       "post": {
         "tags": [
@@ -1467,222 +1505,6 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/ForgotPasswordDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Auth/reset-password": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json;odata.metadata=minimal;odata.streaming=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=minimal;odata.streaming=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=minimal": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=full;odata.streaming=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=full;odata.streaming=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=full": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=none;odata.streaming=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=none;odata.streaming=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=none": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.streaming=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.streaming=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=full;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=full;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=none;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.metadata=none;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.streaming=true;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.streaming=true;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.streaming=false;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;odata.streaming=false;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;IEEE754Compatible=false": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/json;IEEE754Compatible=true": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "text/plain": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
               }
             }
           }
@@ -2572,6 +2394,10 @@
           },
           "isActive": {
             "type": "boolean"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2697,34 +2523,6 @@
           "role": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ResetPasswordDto": {
-        "required": [
-          "confirmPassword",
-          "newPassword"
-        ],
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "token": {
-            "type": "string",
-            "nullable": true
-          },
-          "newPassword": {
-            "minLength": 1,
-            "type": "string",
-            "format": "password"
-          },
-          "confirmPassword": {
-            "minLength": 1,
-            "type": "string",
-            "format": "password"
           }
         },
         "additionalProperties": false

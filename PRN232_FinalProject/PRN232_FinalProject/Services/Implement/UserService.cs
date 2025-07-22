@@ -28,10 +28,14 @@ namespace PRN232_FinalProject.Services.Implement
         public async Task<bool> DeleteAsync(string id) => await _repo.DeleteAsync(id);
         public async Task<bool> ResetPasswordAsync(ResetPasswordDto dto)
         {
+
             var user = await _repo.GetByEmailAsync(dto.Email);
             if (user == null) return false;
 
-            var result = await _userManager.ResetPasswordAsync(user, dto.Token, dto.NewPassword);
+            // Giải mã token trước khi reset
+            var decodedToken = Uri.UnescapeDataString(dto.Token);
+
+            var result = await _userManager.ResetPasswordAsync(user, decodedToken, dto.NewPassword);
             return result.Succeeded;
         }
     }
