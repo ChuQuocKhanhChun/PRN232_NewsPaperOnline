@@ -232,10 +232,11 @@ namespace GrpcMicroservice.Services
                 return new AccountRequest
                 {
                     UserId = user.Id,
-                    FullName = user.UserName, // Giả sử UserName dùng làm FullName hoặc bạn có một thuộc tính FullName riêng
+                    FullName = user.FullName, // Giả sử UserName dùng làm FullName hoặc bạn có một thuộc tính FullName riêng
                     Email = user.Email,
                     Role = role,
-                    Password = "" // Luôn để trống hoặc null khi trả về thông tin account để tránh rò rỉ mật khẩu
+                    Password = user.PasswordHash,
+                    Username = user.UserName// Luôn để trống hoặc null khi trả về thông tin account để tránh rò rỉ mật khẩu
                 };
             }
 

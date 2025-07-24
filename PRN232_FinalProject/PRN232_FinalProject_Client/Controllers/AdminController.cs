@@ -132,22 +132,22 @@ namespace PRN232_FinalProject_Client.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var model = new EditAccountViewModel(); // <-- DÙNG VIEWMODEL MỚI
+            var model = new EditAccountViewModel();
             try
             {
                 var request = new AccountIdRequest { UserId = id };
-                // GetAccountByIdAsync trả về AccountRequest, cần ánh xạ nó sang EditAccountViewModel
                 var accountGrpc = await _accountClient.GetAccountByIdAsync(request);
 
                 // Ánh xạ AccountRequest sang EditAccountViewModel
                 model.UserId = accountGrpc.UserId;
-                model.Username = accountGrpc.Username;
-                model.FullName = accountGrpc.FullName;
+               
                 model.Email = accountGrpc.Email;
                 model.Role = accountGrpc.Role;
-                
+                // KHÔNG GÁN MẬT KHẨU VÀO NEWPASSWORD Ở ĐÂY!
+                // model.NewPassword = accountGrpc.Password; // <-- LOẠI BỎ DÒNG NÀY
 
-                await PopulateAvailableRolesForEdit(model); // <-- Tải danh sách vai trò
+              
+                await PopulateAvailableRolesForEdit(model);
             }
             catch (RpcException ex)
             {
@@ -175,81 +175,66 @@ namespace PRN232_FinalProject_Client.Controllers
         // SỬA Action để xử lý việc cập nhật tài khoản (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(EditAccountViewModel model) // <-- NHẬN VIEWMODEL MỚI
+        public async Task<IActionResult> Edit(EditAccountViewModel model)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    ModelState.AddModelError("", "Cập nhật tài khoản thất bại.");
-            //    await PopulateAvailableRolesForEdit(model); // <-- Tải lại danh sách vai trò nếu validation thất bại
-            //    return View(model);
-            //}
+            // RẤT QUAN TRỌNG: Bật lại kiểm tra ModelState.IsValid
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Cập nhật tài khoản thất bại: Dữ liệu không hợp lệ."); // Thông báo lỗi chung
+                await PopulateAvailableRolesForEdit(model);
+                return View(model);
+            }
 
             try
             {
-                var request = new AccountIdRequest { UserId = model.UserId };
-                // GetAccountByIdAsync trả về AccountRequest, cần ánh xạ nó sang EditAccountViewModel
-                var accountGrpc = await _accountClient.GetAccountByIdAsync(request);
-                // Ánh xạ EditAccountViewModel sang AccountRequest để gửi qua gRPC
-                if (model.NewPassword == null)
+                // Lấy thông tin tài khoản hiện tại để giữ lại mật khẩu cũ, IsActive và ImageUrl nếu không thay đổi
+                var currentAccountGrpc = await _accountClient.GetAccountByIdAsync(new AccountIdRequest { UserId = model.UserId });
+                if (currentAccountGrpc == null)
                 {
-                    var accountRequest1 = new AccountRequest
-                    {
-                        UserId = model.UserId,
-                        Username = model.Username,
-                        FullName = model.FullName,
-                        Email = model.Email,
-                        Role = model.Role,
-                         Password = accountGrpc.Password, // Giữ nguyên mật khẩu cũ nếu không thay đổi
-                    };
-
-                    var reply1 = await _accountClient.UpdateAccountAsync(accountRequest1);
-                    if (reply1 != null && !string.IsNullOrEmpty(reply1.Id)) // Sửa reply.Id thành reply.UserId
-                    {
-                        TempData["SuccessMessage"] = $"Tài khoản {reply1.Id} đã được cập nhật thành công.";
-                        return RedirectToAction(nameof(Index));
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Cập nhật tài khoản thất bại.");
-                    }
+                    ModelState.AddModelError("", "Không tìm thấy tài khoản để cập nhật.");
+                    await PopulateAvailableRolesForEdit(model);
+                    return View(model);
                 }
-                else {
 
-                    var accountRequest = new AccountRequest
-                    {
-                        UserId = model.UserId,
-                        Username = model.Username,
-                        FullName = model.FullName,
-                        Email = model.Email,
-                        Role = model.Role,
-                        Password = model.NewPassword ?? "", // Dùng NewPassword, nếu null thì gửi rỗng
+                // Tạo AccountRequest để gửi đến gRPC service
+                var accountRequest = new AccountRequest
+                {
+                    UserId = currentAccountGrpc.UserId,
+                    Username = currentAccountGrpc.Username ?? "", // Đảm bảo không gửi null đến gRPC nếu Username là tùy chọn và null
+                    FullName = currentAccountGrpc.FullName ?? "", // Đảm bảo không gửi null
+                    Email = model.Email,
+                    Role = model.Role ?? "User", // Cung cấp giá trị mặc định nếu Role là null
+                                                 // LOGIC QUAN TRỌNG CHO MẬT KHẨU:
+                                                 // Nếu model.NewPassword là null hoặc rỗng, giữ nguyên mật khẩu cũ từ currentAccountGrpc.Password
+                                                 // Ngược lại, sử dụng mật khẩu mới đã nhập.
+                    Password = string.IsNullOrEmpty(model.NewPassword) ? currentAccountGrpc.Password : model.NewPassword
+                    // Đảm bảo không gửi null nếu ImageUrl là tùy chọn và null
+                };
 
-                    };
+                var reply = await _accountClient.UpdateAccountAsync(accountRequest);
 
-                    var reply = await _accountClient.UpdateAccountAsync(accountRequest);
-                    if (reply != null && !string.IsNullOrEmpty(reply.Id)) // Sửa reply.Id thành reply.UserId
-                    {
-                        TempData["SuccessMessage"] = $"Tài khoản {reply.Id} đã được cập nhật thành công.";
-                        return RedirectToAction(nameof(Index));
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Cập nhật tài khoản thất bại.");
-                    }
+                // Sửa reply.Id thành reply.UserId
+                if (reply != null && !string.IsNullOrEmpty(reply.Id))
+                {
+                    TempData["SuccessMessage"] = $"Tài khoản {reply.Id} đã được cập nhật thành công.";
+                    return RedirectToAction(nameof(Index));
                 }
-                
+                else
+                {
+                    ModelState.AddModelError("", "Cập nhật tài khoản thất bại: Phản hồi không hợp lệ từ dịch vụ.");
+                }
             }
             catch (RpcException ex)
             {
                 _logger.LogError(ex, "Lỗi gRPC khi cập nhật tài khoản: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
                 ModelState.AddModelError("", $"Lỗi khi cập nhật tài khoản: {ex.Status.Detail}");
-                await PopulateAvailableRolesForEdit(model); // <-- Tải lại danh sách vai trò sau lỗi gRPC
+                await PopulateAvailableRolesForEdit(model);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Lỗi chung khi cập nhật tài khoản.");
                 ModelState.AddModelError("", $"Có lỗi xảy ra: {ex.Message}");
-                await PopulateAvailableRolesForEdit(model); // <-- Tải lại danh sách vai trò sau lỗi chung
+                await PopulateAvailableRolesForEdit(model);
             }
             return View(model);
         }
