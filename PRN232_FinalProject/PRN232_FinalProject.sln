@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN232_FinalProject", "PRN232_FinalProject\PRN232_FinalProject.csproj", "{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN232_FinalProject_Client", "PRN232_FinalProject_Client\PRN232_FinalProject_Client.csproj", "{C525F61F-EF40-412A-8543-FC8A990DB3CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F1FB0833-59FA-4388-8BD1-83BF93E7DD5C} = {F1FB0833-59FA-4388-8BD1-83BF93E7DD5C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcMicroservice", "GrpcMicroservice\GrpcMicroservice.csproj", "{F1FB0833-59FA-4388-8BD1-83BF93E7DD5C}"
 EndProject
@@ -30,5 +33,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DCCAEE0B-404F-4075-B9DD-CAD05E63D013}
 	EndGlobalSection
 EndGlobal

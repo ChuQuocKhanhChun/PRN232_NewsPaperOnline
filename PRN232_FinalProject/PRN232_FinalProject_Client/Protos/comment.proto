@@ -1,0 +1,29 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcCommentService";
+
+service CommentService {
+  rpc AddComment (AddCommentRequest) returns (CommentResponse);
+  rpc DeleteComment (DeleteCommentRequest) returns (DeleteCommentResult);
+}
+
+message AddCommentRequest {
+  string articleId = 1;
+  string content = 2;
+  string userId = 3;
+}
+
+message DeleteCommentRequest {
+  string commentId = 1;
+}
+
+message CommentResponse {
+  string id = 1;
+  string content = 2;
+  string userId = 3;
+  string createdAt = 4;
+}
+
+message DeleteCommentResult {
+  bool success = 1;
+}

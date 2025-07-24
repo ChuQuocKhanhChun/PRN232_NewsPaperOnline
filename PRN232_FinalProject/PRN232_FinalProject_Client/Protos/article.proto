@@ -1,0 +1,37 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcArticleService";
+
+service ArticleService {
+  rpc CreateArticle (CreateArticleRequest) returns (ArticleResponse);
+  rpc UpdateArticle (UpdateArticleRequest) returns (ArticleResponse);
+  rpc DeleteArticle (DeleteArticleRequest) returns (DeleteArticleResult);
+}
+
+message CreateArticleRequest {
+  string title = 1;
+  string content = 2;
+  string authorId = 3;
+}
+
+message UpdateArticleRequest {
+  string id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message DeleteArticleRequest {
+  string id = 1;
+}
+
+message ArticleResponse {
+  string id = 1;
+  string title = 2;
+  string content = 3;
+  string authorId = 4;
+  string createdAt = 5;
+}
+
+message DeleteArticleResult {
+  bool success = 1;
+}

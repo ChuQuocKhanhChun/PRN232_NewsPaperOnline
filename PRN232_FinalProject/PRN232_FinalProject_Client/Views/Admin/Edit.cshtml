@@ -1,0 +1,48 @@
+﻿@model PRN232_FinalProject_Client.Models.EditAccountViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Tài khoản";
+}
+
+<h1>Chỉnh sửa Tài khoản</h1>        
+
+<h4>ID: @Model.UserId</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="UserId" /> @* Luôn giữ UserId để biết tài khoản nào đang được chỉnh sửa *@
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Role" class="control-label"></label>
+                <select asp-for="Role" class="form-control" asp-items="@(new SelectList(Model.AvailableRoles, Model.Role))">
+                    <option value="">-- Chọn vai trò --</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewPassword" class="control-label"></label>
+                <input asp-for="NewPassword" type="password" class="form-control" placeholder="Để trống nếu không đổi mật khẩu" />
+                <span asp-validation-for="NewPassword" class="text-danger"></span>
+            </div>
+           
+            
+            <div class="form-group mt-3">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

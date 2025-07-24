@@ -1,0 +1,45 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "MyProject.Grpc";
+
+service AccountService {
+  rpc CreateAccount (AccountRequest) returns (AccountReply);
+  rpc UpdateAccount (AccountRequest) returns (AccountReply);
+  rpc DeleteAccount (AccountIdRequest) returns (Empty);
+  rpc GetAllAccounts (Empty) returns (AccountList);
+  rpc GetAccountById (AccountIdRequest) returns (AccountRequest);
+  rpc GetAllRoles (Empty) returns (RoleList);
+  rpc ToggleAccountActive (AccountIdRequest) returns (AccountReply);
+}
+
+message AccountRequest {
+  string userId = 1;
+  string fullName = 2;
+  string email = 3;
+  string role = 4;
+  string password = 5;
+  string username = 6;
+  bool isActive = 7;       // <-- Đảm bảo trường này có
+  string imageUrl = 8; 
+}
+
+message AccountReply {
+  string id = 1;
+  string image = 2;
+  string full_name = 3;
+  string email = 4;
+  bool is_active = 5;
+  string password =6;
+}
+
+message AccountIdRequest {
+  string userId = 1;
+}
+
+message AccountList {
+  repeated AccountReply accounts = 1;
+}
+message RoleList { 
+  repeated string roles = 1;
+}
+message Empty {}

@@ -1,49 +1,89 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using GrpcArticleService;
+using PRN232_FinalProject.Models;
 using System.Collections.Concurrent;
 
 namespace GrpcMicroservice.Services
 {
-    public class ArticleService : ArticleService.ArticleServiceBase
+    public class ArticleService : GrpcArticleService.ArticleService.ArticleServiceBase
     {
-        // In-memory DB giả
-        private static readonly ConcurrentDictionary<string, Article> _articles = new();
+        private readonly Prn232FinalProjectContext _context;
+        private readonly ILogger<ArticleService> _logger;
 
-        public override Task<ArticleList> GetAll(Empty request, ServerCallContext context)
-        {
-            var list = new ArticleList();
-            list.Articles.AddRange(_articles.Values);
-            return Task.FromResult(list);
+        public ArticleService(Prn232FinalProjectContext context, ILogger<ArticleService> logger) { 
+        
+            _context = context;
+            _logger = logger;
         }
 
-        public override Task<Article> GetById(ArticleIdRequest request, ServerCallContext context)
+        public override async Task<ArticleResponse> CreateArticle(CreateArticleRequest request, ServerCallContext context)
         {
-            _articles.TryGetValue(request.Id, out var article);
-            return Task.FromResult(article ?? new Article());
-        }
-
-        public override Task<Article> Create(Article request, ServerCallContext context)
-        {
-            var id = Guid.NewGuid().ToString();
-            var newArticle = request with { Id = id };
-            _articles[id] = newArticle;
-            return Task.FromResult(newArticle);
-        }
-
-        public override Task<Article> Update(Article request, ServerCallContext context)
-        {
-            if (_articles.ContainsKey(request.Id))
+            var article = new Article
             {
-                _articles[request.Id] = request;
-                return Task.FromResult(request);
-            }
-            throw new RpcException(new Status(StatusCode.NotFound, "Article not found"));
+                Title = request.Title,
+                Content = request.Content,
+                AuthorId = request.AuthorId,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Articles.Add(article);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("Article created: {Id}", article.ArticleId);
+
+            return new ArticleResponse
+            {
+                Id = article.ArticleId.ToString(),
+                Title = article.Title,
+                Content = article.Content,
+                AuthorId = article.AuthorId,
+                CreatedAt = article.CreatedAt.HasValue ? article.CreatedAt.Value.ToString("o") : string.Empty
+            };
         }
 
-        public override Task<Empty> Delete(ArticleIdRequest request, ServerCallContext context)
+        public override async Task<ArticleResponse> UpdateArticle(UpdateArticleRequest request, ServerCallContext context)
         {
-            _articles.TryRemove(request.Id, out _);
-            return Task.FromResult(new Empty());
+            var article = await _context.Articles.FindAsync(request.Id);
+            if (article == null)
+            {
+                return new ArticleResponse
+                {
+                    Id = request.Id,
+                    Title = "",
+                    Content = "",
+                    AuthorId = "",
+                    CreatedAt = ""
+                };
+            }
+
+            article.Title = request.Title;
+            article.Content = request.Content;
+
+            await _context.SaveChangesAsync();
+
+
+            return new ArticleResponse
+            {
+                Id = article.ArticleId.ToString(),
+                Title = article.Title,
+                Content = article.Content,
+                AuthorId = article.AuthorId,
+                CreatedAt = article.CreatedAt.HasValue ? article.CreatedAt.Value.ToString("o") : string.Empty
+            };
+        }
+
+        public override async Task<DeleteArticleResult> DeleteArticle(DeleteArticleRequest request, ServerCallContext context)
+        {
+            var article = await _context.Articles.FindAsync(request.Id);
+            if (article != null)
+            {
+                _context.Articles.Remove(article);
+                await _context.SaveChangesAsync();
+                _logger.LogInformation("Article deleted: {Id}", request.Id);
+                return new DeleteArticleResult { Success = true };
+            }
+            return new DeleteArticleResult { Success = false };
         }
     }
 

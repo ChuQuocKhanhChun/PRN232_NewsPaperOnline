@@ -1,0 +1,78 @@
+﻿@model IEnumerable<MyProject.Grpc.AccountReply>
+
+@{
+    ViewData["Title"] = "Quản lý Tài khoản";
+}
+
+<h1>Quản lý Tài khoản</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Tạo Tài khoản Mới</a>
+</p>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Hình ảnh</th>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>
+                    <img src="@(string.IsNullOrEmpty(item.Image) ? "/images/0d64989794b1a4c9d89bff571d3d5842.jpg" : item.Image)" alt="Hình ảnh người dùng" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" />
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>
+                    @if (item.IsActive)
+                    {
+                        <span class="badge bg-success">Hoạt động</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Không hoạt động</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Sửa</a> |
+
+                    @if (item.IsActive)
+                    {
+                        <form asp-action="ToggleActiveStatus" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc muốn vô hiệu hoá tài khoản này không?');">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Vô hiệu hoá</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="ToggleActiveStatus" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc muốn kích hoạt lại tài khoản này không?');">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-success">Kích hoạt</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

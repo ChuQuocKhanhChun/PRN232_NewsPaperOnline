@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using GrpcMicroservice.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using PRN232_FinalProject_Client.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,23 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Yêu cầu HTTPS
         options.Cookie.SameSite = SameSiteMode.Strict; // Bảo mật SameSite
     });
+
+builder.Services.AddGrpcClient<MyProject.Grpc.AccountService.AccountServiceClient>(o =>
+{
+    // Địa chỉ HTTP của GrpcMicroservice
+    o.Address = new Uri("http://localhost:5117");
+});
+
+// Lặp lại tương tự cho ArticleService và CommentService
+builder.Services.AddGrpcClient<GrpcArticleService.ArticleService.ArticleServiceClient>(o =>
+{
+    o.Address = new Uri("http://localhost:5117");
+});
+
+builder.Services.AddGrpcClient<GrpcCommentService.CommentService.CommentServiceClient>(o =>
+{
+    o.Address = new Uri("http://localhost:5117");
+}); 
 builder.Services.AddSession();
 
 var app = builder.Build();
