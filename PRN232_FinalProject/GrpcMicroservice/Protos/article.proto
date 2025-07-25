@@ -15,6 +15,62 @@ service ArticleService {
   rpc RemoveArticle (RemoveArticleRequest) returns (RemoveArticleResponse); // Gỡ bài báo (IsDeleted = true)
    rpc RestoreArticle (RestoreArticleRequest) returns (RestoreArticleResponse);
    rpc GetAllArticlesForAdmin (Empty) returns (ArticleList);
+   rpc GetMostViewedArticles (MostViewedArticlesRequest) returns (MostViewedArticlesResponse);
+  rpc GetTotalArticleViews (TotalArticleViewsRequest) returns (TotalArticleViewsResponse);
+  rpc GetMostLikedArticles (MostLikedArticlesRequest) returns (MostLikedArticlesResponse);
+  rpc UpdateArticleLikesCount (UpdateArticleLikesCountRequest) returns (ArticleResponse);
+}
+// Yêu cầu lấy bài viết được like nhiều nhất
+message MostLikedArticlesRequest {
+  string startDate = 1; // Định dạng YYYY-MM-DD (tùy chọn lọc theo ngày)
+  string endDate = 2;   // Định dạng YYYY-MM-DD (tùy chọn lọc theo ngày)
+  int32 limit = 3;      // Giới hạn số lượng bài viết trả về
+}
+
+// Model cho bài viết được like nhiều nhất (tương tự MostViewedArticleModel nhưng có LikesCount)
+message MostLikedArticleModel {
+  string articleId = 1;
+  string title = 2;
+  string author = 3;
+  int32 likesCount = 4; // Lượt Like
+  string publishedDate = 5;
+}
+
+// Phản hồi cho yêu cầu lấy bài viết được like nhiều nhất
+message MostLikedArticlesResponse {
+  repeated MostLikedArticleModel articles = 1;
+}
+
+// Yêu cầu cập nhật lượt like (ví dụ: +1 khi like, -1 khi unlike)
+message UpdateArticleLikesCountRequest {
+  string articleId = 1;
+  int32 changeBy = 2; // Số lượng thay đổi (ví dụ: 1 hoặc -1)
+}
+message MostViewedArticlesRequest {
+  string startDate = 1; // Định dạng YYYY-MM-DD
+  string endDate = 2;   // Định dạng YYYY-MM-DD
+  int32 limit = 3;      // Giới hạn số lượng bài viết trả về
+}
+
+message MostViewedArticleModel {
+  string articleId = 1;
+  string title = 2;
+  string author = 3; // Thêm tên tác giả để hiển thị đẹp hơn
+  int32 viewCount = 4;
+  string publishedDate = 5; // Ngày xuất bản
+}
+
+message MostViewedArticlesResponse {
+  repeated MostViewedArticleModel articles = 1;
+}
+
+message TotalArticleViewsRequest {
+  string startDate = 1; // Định dạng YYYY-MM-DD
+  string endDate = 2;   // Định dạng YYYY-MM-DD
+}
+
+message TotalArticleViewsResponse {
+  int32 totalViews = 1;
 }
 // MỚI/XÁC NHẬN: Message cho yêu cầu khôi phục bài báo
 message RestoreArticleRequest {

@@ -15,6 +15,11 @@ namespace PRN232_FinalProject.Services.Interfaces
         Task<ArticleDto?> UpdateStatusAsync(int id, string status);
         Task<int> GetCountAsync();
         Task<IEnumerable<ArticleDto>> GetByAuthorEmailAsync(string email);
+        Task<int> GetLikeCountAsync(int articleId);
+        Task<bool> IsLikedAsync(int articleId, string userId);
+        Task LikeAsync(int articleId, string userId);
+        Task UnlikeAsync(int articleId, string userId);
+
     }
 
 }

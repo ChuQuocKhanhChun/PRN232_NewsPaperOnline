@@ -1,0 +1,52 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "TagService.Grpc";
+
+package tag;
+
+service TagService {
+  rpc CreateTag (CreateTagRequest) returns (TagResponse);
+  rpc GetTag (GetTagRequest) returns (TagResponse);
+  rpc GetAllTags (GetAllTagsRequest) returns (GetAllTagsResponse);
+  rpc UpdateTag (UpdateTagRequest) returns (TagResponse);
+  rpc DeleteTag (DeleteTagRequest) returns (DeleteTagResponse);
+}
+
+message TagModel {
+  int32 tagId = 1;
+  string name = 2;
+}
+
+message CreateTagRequest {
+  string name = 1;
+}
+
+message TagResponse {
+  TagModel tag = 1;
+}
+
+message GetTagRequest {
+  int32 tagId = 1;
+}
+
+message GetAllTagsRequest {
+  // No fields needed for this request
+}
+
+message GetAllTagsResponse {
+  repeated TagModel tags = 1;
+}
+
+message UpdateTagRequest {
+  int32 tagId = 1;
+  string name = 2;
+}
+
+message DeleteTagRequest {
+  int32 tagId = 1;
+}
+
+message DeleteTagResponse {
+  bool success = 1;
+  string message = 2;
+}

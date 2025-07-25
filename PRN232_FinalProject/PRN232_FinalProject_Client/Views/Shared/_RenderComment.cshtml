@@ -1,0 +1,63 @@
+﻿@model PRN232_FinalProject_Client.DTO.CommentTreeDto
+@{
+    var currentUserId = ViewData["CurrentUserId"] as string;
+    var articleId = (int)ViewData["ArticleId"];
+}
+
+<div class="mb-3 ps-@(Model.ParentCommentId != null ? 4 : 0)">
+    <div class="d-flex align-items-start">
+        <img src="@(string.IsNullOrEmpty(Model.AuthorImage) ? "https://cdn.vectorstock.com/i/500p/42/00/avatar-default-user-profile-simple-flat-icon-vector-57234200.jpg" : Model.AuthorImage)"
+             class="rounded-circle me-2" style="width: 40px; height: 40px;" />
+        <div class="flex-grow-1">
+            <div class="fw-semibold">@Model.AuthorName</div>
+            <div class="text-muted small">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+
+            @if (Model.IsDeleted)
+            {
+                <div class="fst-italic text-muted">Bình luận đã bị xóa</div>
+            }
+            else
+            {
+                <div class="mb-1">@Model.Content</div>
+
+                @if (User.Identity.IsAuthenticated && Model.AuthorId == currentUserId)
+                {
+                    <div class="mb-1">
+                        <form asp-action="DeleteComment" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@articleId" />
+                            <input type="hidden" name="commentId" value="@Model.CommentId" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
+                        </form>
+                    </div>
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- Reply form -->
+                    <form asp-action="AddComment" method="post" class="mt-2">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@articleId" />
+                        <input type="hidden" name="parentCommentId" value="@Model.CommentId" />
+                        <textarea name="content" class="form-control mb-1" rows="1" placeholder="Trả lời..."></textarea>
+                        <button type="submit" class="btn btn-sm btn-success">Trả lời</button>
+                    </form>
+                }
+            }
+        </div>
+    </div>
+
+    @if (Model.Replies != null && Model.Replies.Any())
+    {
+        <div class="mt-2 ps-4 border-start border-2">
+            @foreach (var reply in Model.Replies)
+            {
+                @Html.Partial("_RenderComment", reply, new ViewDataDictionary(ViewData)
+                {
+                ["CurrentUserId"] = currentUserId,
+                ["ArticleId"] = articleId
+                })
+                }
+        </div>
+    }
+</div>

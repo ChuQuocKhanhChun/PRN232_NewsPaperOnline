@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using PRN232_FinalProject.DTO;
+using PRN232_FinalProject.Services.Implement;
 using PRN232_FinalProject.Services.Interfaces;
 
 namespace PRN232_FinalProject.Controllers
@@ -29,6 +30,7 @@ namespace PRN232_FinalProject.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var article = await _service.GetByIdAsync(id);
+
             return article == null ? NotFound() : Ok(article);
         }
 
@@ -101,5 +103,33 @@ namespace PRN232_FinalProject.Controllers
             var count = await _service.GetCountAsync();
             return Ok(new { Count = count });
         }
+        [HttpGet("{id}/like-count")]
+        public async Task<IActionResult> GetLikeCount(int id)
+        {
+            var count = await _service.GetLikeCountAsync(id);
+            return Ok(count);
+        }
+
+        [HttpGet("{id}/is-liked/{userId}")]
+        public async Task<IActionResult> IsLiked(int id, string userId)
+        {
+            var liked = await _service.IsLikedAsync(id, userId);
+            return Ok(liked);
+        }
+
+        [HttpPost("{id}/like/{userId}")]
+        public async Task<IActionResult> Like(int id, string userId)
+        {
+            await _service.LikeAsync(id, userId);
+            return NoContent();
+        }
+
+        [HttpPost("{id}/unlike/{userId}")]
+        public async Task<IActionResult> Unlike(int id, string userId)
+        {
+            await _service.UnlikeAsync(id, userId);
+            return NoContent();
+        }
+
     }
 }

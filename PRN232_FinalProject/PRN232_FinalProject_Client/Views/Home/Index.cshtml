@@ -79,7 +79,7 @@
                         <div class="col-md-12 mb-5">
                             <div class="card border-0 shadow-lg">
                                 <a href="@Url.Action("Details", "Article", new { id = Model[0].ArticleID })">
-                                    <img src="@(string.IsNullOrEmpty(Model[0].ImageUrl) ? "/images/default-news.jpg" : Model[0].ImageUrl)" class="card-img-top" style="height: 400px; object-fit: cover;" />
+                                    <img src="@(string.IsNullOrEmpty(Model[0].ImageUrl) ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtYZBPY2ZLY72r9dKYiaFJdWIw-IYlfQUa5Q&s" : Model[0].ImageUrl)" class="card-img-top" style="height: 400px; object-fit: cover;" />
                                 </a>
                                 <div class="card-body">
                                     <h2 class="card-title text-dark fw-bold">
@@ -97,7 +97,7 @@
                                 var a = Model[1];
                                 <div class="card border-0 mb-4 shadow-sm h-100">
                                     <a href="@Url.Action("Details", "Article", new { id = a.ArticleID })">
-                                        <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "/images/default-news.jpg" : a.ImageUrl)" class="card-img-top" style="height: 250px; object-fit: cover;" />
+                                        <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtYZBPY2ZLY72r9dKYiaFJdWIw-IYlfQUa5Q&s" : a.ImageUrl)" class="card-img-top" style="height: 250px; object-fit: cover;" />
                                     </a>
                                     <div class="card-body">
                                         <h5 class="card-title">
@@ -114,7 +114,7 @@
                                 var a = Model[2];
                                 <div class="card border-0 mb-4 shadow-sm h-100">
                                     <a href="@Url.Action("Details", "Article", new { id = a.ArticleID })">
-                                        <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "/images/default-news.jpg" : a.ImageUrl)" class="card-img-top" style="height: 250px; object-fit: cover;" />
+                                        <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtYZBPY2ZLY72r9dKYiaFJdWIw-IYlfQUa5Q&s" : a.ImageUrl)" class="card-img-top" style="height: 250px; object-fit: cover;" />
                                     </a>
                                     <div class="card-body">
                                         <h5 class="card-title">
@@ -135,7 +135,7 @@
                                 <div class="col-md-4 mb-4">
                                     <div class="card border-0 shadow-sm h-100">
                                         <a href="@Url.Action("Details", "Article", new { id = a.ArticleID })">
-                                            <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "/images/default-news.jpg" : a.ImageUrl)" class="card-img-top" style="height: 200px; object-fit: cover;" />
+                                            <img src="@(string.IsNullOrEmpty(a.ImageUrl) ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtYZBPY2ZLY72r9dKYiaFJdWIw-IYlfQUa5Q&s" : a.ImageUrl)" class="card-img-top" style="height: 200px; object-fit: cover;" />
                                         </a>
                                         <div class="card-body">
                                             <h6 class="card-title fw-semibold">

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PRN232_FinalProject.DTO;
 using PRN232_FinalProject.Models;
+using PRN232_FinalProject.Repository.Implement;
 using PRN232_FinalProject.Repository.Interfaces;
 using PRN232_FinalProject.Services.Interfaces;
 using System.Collections.Generic;
@@ -61,6 +62,18 @@ namespace PRN232_FinalProject.Services.Implement
         {
             return (IEnumerable<ArticleDto>)await _repo.GetByAuthorEmailAsync(email);
         }
+        public async Task<int> GetLikeCountAsync(int articleId)
+    => await _repo.GetLikeCountAsync(articleId);
+
+        public async Task<bool> IsLikedAsync(int articleId, string userId)
+            => await _repo.IsLikedAsync(articleId, userId);
+
+        public async Task LikeAsync(int articleId, string userId)
+            => await _repo.LikeAsync(articleId, userId);
+
+        public async Task UnlikeAsync(int articleId, string userId)
+            => await _repo.UnlikeAsync(articleId, userId);
+
     }
 
 }

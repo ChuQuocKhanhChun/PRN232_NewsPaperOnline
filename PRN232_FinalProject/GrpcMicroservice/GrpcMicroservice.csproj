@@ -11,6 +11,8 @@
 	  <Protobuf Include="Protos\article.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\comment.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\account.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\tag.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\category.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,7 +16,7 @@ namespace PRN232_FinalProject.Repository.Implement
         }
 
         public async Task<IEnumerable<ArticleDto>> GetAllAsync() => (IEnumerable<ArticleDto>)await _context.Articles
-    .Include(a => a.Tags)
+    .Include(a => a.Tags).Include(a => a.ArticleLikes)
             .Where(a=>a.Status == "Published"&&a.IsDeleted==false)
     .Select(a => new ArticleDto
     {
@@ -24,16 +24,24 @@ namespace PRN232_FinalProject.Repository.Implement
         Title = a.Title,
         Content = a.Content,
         Status = a.Status,
+        ViewCount = a.Views,
+        ImageUrl = a.ImageUrl,
         CreatedAt = a.CreatedAt,
         CategoryId = a.CategoryId,
         CategoryName = a.Category.Name,
         TagIds = a.Tags.Select(t => t.TagId).ToList(),
         TagNames = a.Tags.Select(t => t.Name).ToList(),
-    }).ToListAsync()
+        LikesCount = a.ArticleLikes.Count(),
+    }).OrderByDescending(c=>c.CreatedAt).ToListAsync()
     ;
 
 
-        public async Task<Article?> GetByIdAsync(int id) => await _context.Articles.Include(a => a.Category).Include(a => a.Tags).Include(a => a.Author).FirstOrDefaultAsync(x => x.ArticleId == id);
+        public async Task<Article?> GetByIdAsync(int id) { 
+          var article=  await _context.Articles.Include(a => a.Category).Include(a => a.Tags).Include(a => a.Author).Include(a=>a.ArticleLikes).FirstOrDefaultAsync(x => x.ArticleId == id);
+            article.Views++; // Tăng lượt xem mỗi khi người dùng truy cập chi tiết bài viết
+            await _context.SaveChangesAsync();
+            return article;
+        }
 
         public async Task<Article> CreateAsync(Article article)
         {
@@ -92,6 +100,32 @@ namespace PRN232_FinalProject.Repository.Implement
         {
             throw new NotImplementedException();
         }
+        public async Task<int> GetLikeCountAsync(int articleId)
+    => await _context.ArticleLikes.CountAsync(x => x.ArticleId == articleId);
+
+        public async Task<bool> IsLikedAsync(int articleId, string userId)
+            => await _context.ArticleLikes.AnyAsync(x => x.ArticleId == articleId && x.UserId == userId);
+
+        public async Task LikeAsync(int articleId, string userId)
+        {
+            if (!await IsLikedAsync(articleId, userId))
+            {
+                _context.ArticleLikes.Add(new ArticleLike { ArticleId = articleId, UserId = userId });
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task UnlikeAsync(int articleId, string userId)
+        {
+            var like = await _context.ArticleLikes
+                .FirstOrDefaultAsync(x => x.ArticleId == articleId && x.UserId == userId);
+            if (like != null)
+            {
+                _context.ArticleLikes.Remove(like);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 
 

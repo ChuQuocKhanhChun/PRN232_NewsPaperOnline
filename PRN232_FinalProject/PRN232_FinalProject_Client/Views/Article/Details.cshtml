@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = Model.Title;
     var relatedArticles = ViewBag.RelatedArticles as List<PRN232_FinalProject_Client.DTO.ArticleDto>;
-    var comments = ViewBag.Comments as List<string>; // Adjust type as needed
+    var commentsList = ViewBag.Comments as List<string>; // Adjust type as needed
+    var errorMessage = TempData["ErrorMessage"] as string;
 }
 
 <div class="container mt-5">
@@ -23,9 +24,11 @@
                 }
                 <!-- Title -->
                 <h1 class="fw-bold text-dark mb-2">@Model.Title</h1>
-                <!-- Author name -->
+                <!-- Author & Like/Views Info -->
                 <div class="mb-3 text-muted">
-                    Tác giả: <span class="fw-semibold">@Model.Author?.FullName</span>
+                    Tác giả: <span class="fw-semibold">@Model.Author?.FullName</span> |
+                    Lượt xem: <span class="fw-semibold">@Model.ViewCount</span> |
+                    Lượt thích: <span class="fw-semibold">@ViewBag.LikeCount</span>
                 </div>
                 <!-- Ảnh -->
                 <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/default-news.png" : Model.ImageUrl)" class="card-img-top mb-4" style="height: 400px; object-fit: cover;" />
@@ -33,6 +36,15 @@
                 <div class="fs-5 text-dark mb-4">
                     @Model.Content
                 </div>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <form asp-action="ToggleLike" asp-route-articleId="@Model.ArticleID" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button id="like-btn" type="submit" class="btn btn-sm  @(ViewBag.HasLiked ? "btn-danger" : "btn-outline-danger")">
+                            @(ViewBag.HasLiked ? "Bỏ thích" : "Thích")
+                        </button>
+                    </form>
+                }
             </div>
 
             <!-- Related articles -->
@@ -60,21 +72,31 @@
             <!-- Comments section -->
             <div class="card border-0 shadow-sm mt-4 p-3">
                 <h5 class="fw-bold mb-3">Bình luận</h5>
-                @if (comments != null && comments.Any())
+                @if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    <ul class="list-group list-group-flush">
-                        @foreach (var comment in comments)
-                        {
-                            <li class="list-group-item px-0">@comment</li>
-                        }
-                    </ul>
+                    <div class="alert alert-danger">
+                        @errorMessage
+                    </div>
                 }
+                @if (ViewBag.Comments != null)
+                {
+                    var commentTree = ViewBag.Comments as List<PRN232_FinalProject_Client.DTO.CommentTreeDto>;
+                    ViewData["CurrentUserId"] = ViewBag.CurrentUserId;
+                    ViewData["ArticleId"] = Model.ArticleID;
+
+                    @foreach (var comment in commentTree)
+                    {
+                        @Html.Partial("_RenderComment", comment)
+                    }
+                }
+
                 else
                 {
                     <div class="text-muted">Chưa có bình luận nào.</div>
                 }
                 <!-- Add comment form (optional) -->
                 <form method="post" asp-action="AddComment" asp-route-id="@Model.ArticleID" class="mt-3">
+                    @Html.AntiForgeryToken()
                     <div class="mb-2">
                         <textarea name="content" class="form-control" rows="2" placeholder="Viết bình luận..."></textarea>
                     </div>
@@ -92,3 +114,6 @@
         </div>
     </div>
 </div>
+<script>
+       
+</script>

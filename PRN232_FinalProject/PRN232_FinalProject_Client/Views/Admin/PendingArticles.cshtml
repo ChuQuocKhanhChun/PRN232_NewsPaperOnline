@@ -36,7 +36,6 @@
                     <td>@article.CategoryName</td>
                     <td>@(DateTime.Parse(article.CreatedAt).ToString("dd/MM/yyyy HH:mm"))</td>
                     <td>
-                        <a asp-action="Details" asp-controller="ArticleManagement" asp-route-id="@article.Id" class="btn btn-info btn-sm me-1">Xem</a>
                         <form asp-action="PublishArticle" asp-controller="Admin" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="@article.Id" />
                             <button type="submit" class="btn btn-success btn-sm me-1" onclick="return confirm('Bạn có chắc chắn muốn xuất bản bài báo này?');">Xuất bản</button>

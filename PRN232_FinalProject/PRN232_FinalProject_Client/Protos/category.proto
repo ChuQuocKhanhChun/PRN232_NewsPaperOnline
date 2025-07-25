@@ -1,0 +1,62 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "CategoryService.Grpc";
+
+package category;
+
+service CategoryService {
+  rpc CreateCategory (CreateCategoryRequest) returns (CategoryResponse);
+  rpc GetCategory (GetCategoryRequest) returns (CategoryResponse);
+  rpc GetAllCategories (GetAllCategoriesRequest) returns (GetAllCategoriesResponse);
+  rpc UpdateCategory (UpdateCategoryRequest) returns (CategoryResponse);
+  rpc DeleteCategory (DeleteCategoryRequest) returns (DeleteCategoryResponse);
+  rpc ToggleCategoryActiveStatus (ToggleCategoryActiveStatusRequest) returns (CategoryResponse);
+}
+
+message CategoryModel {
+  int32 categoryId = 1;
+  string name = 2;
+  string description = 3;
+  bool isActive = 4;
+}
+
+message CreateCategoryRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message CategoryResponse {
+  CategoryModel category = 1;
+}
+
+message GetCategoryRequest {
+  int32 categoryId = 1;
+}
+
+message GetAllCategoriesRequest {
+  // Không cần trường nào cho yêu cầu này
+}
+
+message GetAllCategoriesResponse {
+  repeated CategoryModel categories = 1;
+}
+
+message UpdateCategoryRequest {
+  int32 categoryId = 1;
+  string name = 2;
+  string description = 3;
+  bool isActive = 4; // Cho phép cập nhật trạng thái hoạt động
+}
+
+message DeleteCategoryRequest {
+  int32 categoryId = 1;
+}
+
+message DeleteCategoryResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ToggleCategoryActiveStatusRequest {
+  int32 categoryId = 1;
+}

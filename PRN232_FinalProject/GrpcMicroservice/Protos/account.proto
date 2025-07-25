@@ -10,8 +10,16 @@ service AccountService {
   rpc GetAccountById (AccountIdRequest) returns (AccountRequest);
   rpc GetAllRoles (Empty) returns (RoleList);
   rpc ToggleAccountActive (AccountIdRequest) returns (AccountReply);
+  rpc GetNewUsersCount (NewUsersCountRequest) returns (NewUsersCountResponse);
+}
+message NewUsersCountRequest {
+  string startDate = 1; // Định dạng YYYY-MM-DD
+  string endDate = 2;   // Định dạng YYYY-MM-DD
 }
 
+message NewUsersCountResponse {
+  int32 count = 1;
+}
 message AccountRequest {
   string userId = 1;
   string fullName = 2;

@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using CloudinaryDotNet;
+using Grpc.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyProject.Grpc;
@@ -21,7 +22,26 @@ namespace GrpcMicroservice.Services
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager)); // <-- Khởi tạo RoleManager
         }
+        // Trong MyProject.Grpc/Services/AccountGrpcService.cs (giả sử có DbContext và Account entity)
+        public override async Task<NewUsersCountResponse> GetNewUsersCount(NewUsersCountRequest request, ServerCallContext context)
+        {
+            // Lấy tất cả người dùng từ UserManager
+            IQueryable<ApplicationUser> query = _userManager.Users;
 
+            if (!string.IsNullOrEmpty(request.StartDate) && DateTime.TryParse(request.StartDate, out DateTime startDate))
+            {
+                
+                query = query.Where(u => u.CreatedAt >= startDate);
+            }
+            if (!string.IsNullOrEmpty(request.EndDate) && DateTime.TryParse(request.EndDate, out DateTime endDate))
+            {
+                endDate = endDate.AddDays(1).AddTicks(-1);
+                query = query.Where(u => u.CreatedAt <= endDate);
+            }
+
+            var count = await query.CountAsync(); // Sử dụng CountAsync trên IQueryable của UserManager
+            return new NewUsersCountResponse { Count = count };
+        }
         public override async Task<AccountReply> CreateAccount(AccountRequest request, ServerCallContext context)
         {
             var existingUser = await _userManager.FindByIdAsync(request.UserId);

@@ -1,5 +1,6 @@
 ﻿// PRN232_FinalProject_Client/Controllers/AdminController.cs
 
+using CategoryService.Grpc;
 using Grpc.Core; // Để bắt RpcException
 using GrpcArticleService;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +9,7 @@ using MyProject.Grpc; // Namespace cho AccountService (đã định nghĩa trong
 using PRN232_FinalProject_Client.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using TagService.Grpc;
 
 namespace PRN232_FinalProject_Client.Controllers
 {
@@ -15,14 +17,467 @@ namespace PRN232_FinalProject_Client.Controllers
     public class AdminController : Controller
     {
         private readonly ArticleService.ArticleServiceClient _articleClient;
+        private readonly TagService.Grpc.TagService.TagServiceClient _tagClient;
+        private readonly CategoryService.Grpc.CategoryService.CategoryServiceClient _categoryClient;
         private readonly AccountService.AccountServiceClient _accountClient;
         private readonly ILogger<AdminController> _logger; // Nên có Logger để ghi log lỗi
 
-        public AdminController(AccountService.AccountServiceClient accountClient, ILogger<AdminController> logger, ArticleService.ArticleServiceClient articleClient)
+        public AdminController(AccountService.AccountServiceClient accountClient, ILogger<AdminController> logger, ArticleService.ArticleServiceClient articleClient,TagService.Grpc.TagService.TagServiceClient client, CategoryService.Grpc.CategoryService.CategoryServiceClient categoryClient)
         {
             _accountClient = accountClient;
             _logger = logger;
             _articleClient = articleClient;
+            _tagClient = client; // Khởi tạo TagService client
+            _categoryClient = categoryClient;
+        }
+        public async Task<IActionResult> Statistics(DateTime? startDate, DateTime? endDate)
+        {
+            var model = new StatisticViewModel();
+            model.StartDate = startDate;
+            model.EndDate = endDate;
+
+            // Đặt ngày mặc định nếu không có tham số
+            if (!model.StartDate.HasValue)
+            {
+                model.StartDate = DateTime.Today.AddMonths(-1); // Mặc định 1 tháng trước
+            }
+            if (!model.EndDate.HasValue)
+            {
+                model.EndDate = DateTime.Today; // Mặc định là hôm nay
+            }
+
+            try
+            {
+                // Thống kê bài viết được đọc nhiều nhất
+                var mostViewedArticlesRequest = new MostViewedArticlesRequest
+                {
+                    StartDate = model.StartDate.Value.ToString("yyyy-MM-dd"),
+                    EndDate = model.EndDate.Value.ToString("yyyy-MM-dd"),
+                    Limit = 10 // Lấy 10 bài viết được xem nhiều nhất
+                };
+                var mostViewedArticlesResponse = await _articleClient.GetMostViewedArticlesAsync(mostViewedArticlesRequest);
+                model.MostViewedArticles = mostViewedArticlesResponse.Articles.ToList();
+                _logger.LogInformation("Đã lấy {Count} bài viết được xem nhiều nhất trong khoảng {StartDate} - {EndDate}.", model.MostViewedArticles.Count, model.StartDate.Value.ToShortDateString(), model.EndDate.Value.ToShortDateString());
+                var mostLikedArticlesRequest = new MostLikedArticlesRequest
+                {
+                    StartDate = model.StartDate.Value.ToString("yyyy-MM-dd"),
+                    EndDate = model.EndDate.Value.ToString("yyyy-MM-dd"),
+                    Limit = 10 // Lấy 10 bài viết được like nhiều nhất
+                };
+                var mostLikedArticlesResponse = await _articleClient.GetMostLikedArticlesAsync(mostLikedArticlesRequest);
+                model.MostLikedArticles = mostLikedArticlesResponse.Articles.ToList();
+                _logger.LogInformation("Đã lấy {Count} bài viết được like nhiều nhất trong khoảng {StartDate} - {EndDate}.", model.MostLikedArticles.Count, model.StartDate.Value.ToShortDateString(), model.EndDate.Value.ToShortDateString());
+
+                // Thống kê tổng lượt xem bài viết
+                var totalViewsRequest = new TotalArticleViewsRequest
+                {
+                    StartDate = model.StartDate.Value.ToString("yyyy-MM-dd"),
+                    EndDate = model.EndDate.Value.ToString("yyyy-MM-dd")
+                };
+                var totalViewsResponse = await _articleClient.GetTotalArticleViewsAsync(totalViewsRequest);
+                model.TotalArticleViews = totalViewsResponse.TotalViews;
+                _logger.LogInformation("Tổng lượt xem bài viết trong khoảng {StartDate} - {EndDate}: {TotalViews}.", model.StartDate.Value.ToShortDateString(), model.EndDate.Value.ToShortDateString(), model.TotalArticleViews);
+
+                // Thống kê số lượng người dùng mới
+                var newUsersRequest = new NewUsersCountRequest
+                {
+                    StartDate = model.StartDate.Value.ToString("yyyy-MM-dd"),
+                    EndDate = model.EndDate.Value.ToString("yyyy-MM-dd")
+                };
+                var newUsersResponse = await _accountClient.GetNewUsersCountAsync(newUsersRequest);
+                model.NewUsersCount = newUsersResponse.Count;
+                _logger.LogInformation("Số lượng người dùng mới trong khoảng {StartDate} - {EndDate}: {NewUsersCount}.", model.StartDate.Value.ToShortDateString(), model.EndDate.Value.ToShortDateString(), model.NewUsersCount);
+
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi tải báo cáo thống kê: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Lỗi khi tải báo cáo thống kê: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi tải báo cáo thống kê.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+
+            return View(model);
+        }
+        public async Task<IActionResult> Categories()
+        {
+            var model = new CategoryListViewModel();
+            try
+            {
+                _logger.LogInformation("Đang lấy danh sách tất cả các categories từ gRPC.");
+                var response = await _categoryClient.GetAllCategoriesAsync(new GetAllCategoriesRequest());
+                model.Categories = response.Categories.ToList();
+                _logger.LogInformation($"Đã tải thành công {model.Categories.Count} categories.");
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi lấy danh sách categories: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Không thể tải danh sách categories: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi tải danh sách categories.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return View(model);
+        }
+
+        // GET: Admin/CreateCategory
+        [HttpGet]
+        public IActionResult CreateCategory()
+        {
+            return View();
+        }
+
+        // POST: Admin/CreateCategory
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCategory(CreateCategoryViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Dữ liệu đầu vào không hợp lệ khi tạo category.");
+                return View(model);
+            }
+
+            try
+            {
+                _logger.LogInformation("Đang gửi yêu cầu tạo category mới: {CategoryName}", model.Name);
+                var request = new CreateCategoryRequest
+                {
+                    Name = model.Name,
+                    Description = model.Description ?? "" // Đảm bảo không null
+                };
+                var response = await _categoryClient.CreateCategoryAsync(request);
+
+                TempData["SuccessMessage"] = $"Category '{response.Category.Name}' (ID: {response.Category.CategoryId}) đã được tạo thành công.";
+                return RedirectToAction(nameof(Categories));
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi tạo category: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                ModelState.AddModelError("", $"Lỗi khi tạo category: {ex.Status.Detail}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi tạo category.");
+                ModelState.AddModelError("", $"Có lỗi xảy ra: {ex.Message}");
+            }
+            return View(model);
+        }
+
+        // GET: Admin/EditCategory/5
+        [HttpGet]
+        public async Task<IActionResult> EditCategory(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Đang lấy thông tin category để chỉnh sửa, ID: {CategoryId}", id);
+                var request = new GetCategoryRequest { CategoryId = id };
+                var response = await _categoryClient.GetCategoryAsync(request);
+
+                var model = new EditCategoryViewModel
+                {
+                    CategoryId = response.Category.CategoryId,
+                    Name = response.Category.Name,
+                    Description = response.Category.Description,
+                    IsActive = response.Category.IsActive
+                };
+                return View(model);
+            }
+            catch (RpcException ex)
+            {
+                if (ex.StatusCode == Grpc.Core.StatusCode.NotFound)
+                {
+                    _logger.LogWarning("Không tìm thấy category với ID '{CategoryId}' để chỉnh sửa.", id);
+                    TempData["ErrorMessage"] = $"Không tìm thấy category với ID: {id}";
+                }
+                else
+                {
+                    _logger.LogError(ex, "Lỗi gRPC khi lấy thông tin category để chỉnh sửa: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                    TempData["ErrorMessage"] = $"Lỗi khi tải thông tin category: {ex.Status.Detail}";
+                }
+                return RedirectToAction(nameof(Categories));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi lấy thông tin category để chỉnh sửa.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+                return RedirectToAction(nameof(Categories));
+            }
+        }
+
+        // POST: Admin/EditCategory/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditCategory(EditCategoryViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Dữ liệu đầu vào không hợp lệ khi chỉnh sửa category, ID: {CategoryId}", model.CategoryId);
+                return View(model);
+            }
+
+            try
+            {
+                _logger.LogInformation("Đang gửi yêu cầu cập nhật category, ID: {CategoryId}, Tên mới: {CategoryName}", model.CategoryId, model.Name);
+                var request = new UpdateCategoryRequest
+                {
+                    CategoryId = model.CategoryId,
+                    Name = model.Name,
+                    Description = model.Description ?? "", // Đảm bảo không null
+                    IsActive = model.IsActive
+                };
+                var response = await _categoryClient.UpdateCategoryAsync(request);
+
+                TempData["SuccessMessage"] = $"Category '{response.Category.Name}' (ID: {response.Category.CategoryId}) đã được cập nhật thành công.";
+                return RedirectToAction(nameof(Categories));
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi cập nhật category: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                ModelState.AddModelError("", $"Lỗi khi cập nhật category: {ex.Status.Detail}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi cập nhật category.");
+                ModelState.AddModelError("", $"Có lỗi xảy ra: {ex.Message}");
+            }
+            return View(model);
+        }
+
+        // POST: Admin/DeleteCategory/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Đang gửi yêu cầu xóa category, ID: {CategoryId}", id);
+                var request = new DeleteCategoryRequest { CategoryId = id };
+                var response = await _categoryClient.DeleteCategoryAsync(request);
+
+                if (response.Success)
+                {
+                    TempData["SuccessMessage"] = response.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = response.Message;
+                }
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi xóa category: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Lỗi khi xóa category: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi xóa category.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return RedirectToAction(nameof(Categories));
+        }
+
+        // POST: Admin/ToggleCategoryActiveStatus/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleCategoryActiveStatus(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Đang gửi yêu cầu chuyển đổi trạng thái category, ID: {CategoryId}", id);
+                var request = new ToggleCategoryActiveStatusRequest { CategoryId = id };
+                var updatedCategory = await _categoryClient.ToggleCategoryActiveStatusAsync(request);
+
+                string actionMessage = updatedCategory.Category.IsActive ? "kích hoạt" : "vô hiệu hóa";
+                TempData["SuccessMessage"] = $"Category '{updatedCategory.Category.Name}' (ID: {id}) đã được {actionMessage} thành công.";
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi chuyển đổi trạng thái category: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Lỗi khi chuyển đổi trạng thái category: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi chuyển đổi trạng thái category.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return RedirectToAction(nameof(Categories));
+        }
+        public async Task<IActionResult> Tags()
+        {
+            var model = new TagListViewModel();
+            try
+            {
+                _logger.LogInformation("Đang lấy danh sách tất cả các tags từ gRPC.");
+                var response = await _tagClient.GetAllTagsAsync(new GetAllTagsRequest());
+                model.Tags = response.Tags.ToList();
+                _logger.LogInformation($"Đã tải thành công {model.Tags.Count} tags.");
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi lấy danh sách tags: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Không thể tải danh sách tags: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi tải danh sách tags.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return View(model);
+        }
+
+        // GET: Admin/CreateTag
+        [HttpGet]
+        public IActionResult CreateTag()
+        {
+            return View();
+        }
+
+        // POST: Admin/CreateTag
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateTag(CreateTagViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Dữ liệu đầu vào không hợp lệ khi tạo tag.");
+                return View(model);
+            }
+
+            try
+            {
+                _logger.LogInformation("Đang gửi yêu cầu tạo tag mới: {TagName}", model.Name);
+                var request = new CreateTagRequest { Name = model.Name };
+                var response = await _tagClient.CreateTagAsync(request);
+
+                TempData["SuccessMessage"] = $"Tag '{response.Tag.Name}' (ID: {response.Tag.TagId}) đã được tạo thành công.";
+                return RedirectToAction(nameof(Tags));
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi tạo tag: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                ModelState.AddModelError("", $"Lỗi khi tạo tag: {ex.Status.Detail}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi tạo tag.");
+                ModelState.AddModelError("", $"Có lỗi xảy ra: {ex.Message}");
+            }
+            return View(model);
+        }
+
+        // GET: Admin/EditTag/5
+        [HttpGet]
+        public async Task<IActionResult> EditTag(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Đang lấy thông tin tag để chỉnh sửa, ID: {TagId}", id);
+                var request = new GetTagRequest { TagId = id };
+                var response = await _tagClient.GetTagAsync(request);
+
+                var model = new EditTagViewModel
+                {
+                    TagId = response.Tag.TagId,
+                    Name = response.Tag.Name
+                };
+                return View(model);
+            }
+            catch (RpcException ex)
+            {
+                if (ex.StatusCode == Grpc.Core.StatusCode.NotFound)
+                {
+                    _logger.LogWarning("Không tìm thấy tag với ID '{TagId}' để chỉnh sửa.", id);
+                    TempData["ErrorMessage"] = $"Không tìm thấy tag với ID: {id}";
+                }
+                else
+                {
+                    _logger.LogError(ex, "Lỗi gRPC khi lấy thông tin tag để chỉnh sửa: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                    TempData["ErrorMessage"] = $"Lỗi khi tải thông tin tag: {ex.Status.Detail}";
+                }
+                return RedirectToAction(nameof(Tags));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi lấy thông tin tag để chỉnh sửa.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+                return RedirectToAction(nameof(Tags));
+            }
+        }
+
+        // POST: Admin/EditTag/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTag(EditTagViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Dữ liệu đầu vào không hợp lệ khi chỉnh sửa tag, ID: {TagId}", model.TagId);
+                return View(model);
+            }
+
+            try
+            {
+                _logger.LogInformation("Đang gửi yêu cầu cập nhật tag, ID: {TagId}, Tên mới: {TagName}", model.TagId, model.Name);
+                var request = new UpdateTagRequest
+                {
+                    TagId = model.TagId,
+                    Name = model.Name
+                };
+                var response = await _tagClient.UpdateTagAsync(request);
+
+                TempData["SuccessMessage"] = $"Tag '{response.Tag.Name}' (ID: {response.Tag.TagId}) đã được cập nhật thành công.";
+                return RedirectToAction(nameof(Tags));
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi cập nhật tag: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                ModelState.AddModelError("", $"Lỗi khi cập nhật tag: {ex.Status.Detail}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi cập nhật tag.");
+                ModelState.AddModelError("", $"Có lỗi xảy ra: {ex.Message}");
+            }
+            return View(model);
+        }
+
+        // POST: Admin/DeleteTag/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteTag(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Đang gửi yêu cầu xóa tag, ID: {TagId}", id);
+                var request = new DeleteTagRequest { TagId = id };
+                var response = await _tagClient.DeleteTagAsync(request);
+
+                if (response.Success)
+                {
+                    TempData["SuccessMessage"] = response.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = response.Message;
+                }
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi xóa tag: {StatusCode} - {Detail}", ex.StatusCode, ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Lỗi khi xóa tag: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi xóa tag.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return RedirectToAction(nameof(Tags));
         }
         public async Task<IActionResult> PendingArticles()
         {

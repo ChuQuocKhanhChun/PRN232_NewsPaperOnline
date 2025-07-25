@@ -64,7 +64,6 @@
                         @(string.IsNullOrEmpty(article.PublishedDate) ? "N/A" : DateTime.Parse(article.PublishedDate).ToString("dd/MM/yyyy HH:mm"))
                     </td>
                     <td>
-                        <a asp-action="Details" asp-controller="ArticleManagement" asp-route-id="@article.Id" class="btn btn-info btn-sm me-1">Xem</a>
 
                         @* Nút hành động dựa trên trạng thái hiện tại *@
                         @if (!article.IsDeleted) // Nếu bài báo CHƯA bị gỡ (IsDeleted = false)

@@ -17,6 +17,11 @@ namespace PRN232_FinalProject.Repository.Interfaces
         Task<IEnumerable<Article>> GetByAuthorEmailAsync(string email);
         Task<int> CountAsync();
         Task<object> UpdateAsync(Article article);
+        Task<int> GetLikeCountAsync(int articleId);
+        Task<bool> IsLikedAsync(int articleId, string userId);
+        Task LikeAsync(int articleId, string userId);
+        Task UnlikeAsync(int articleId, string userId);
+
     }
 
 }

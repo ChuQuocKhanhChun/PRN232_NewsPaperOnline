@@ -36,7 +36,14 @@ builder.Services.AddGrpcClient<GrpcArticleService.ArticleService.ArticleServiceC
 {
     o.Address = new Uri("http://localhost:5117");
 });
-
+builder.Services.AddGrpcClient<TagService.Grpc.TagService.TagServiceClient>(o =>
+{
+    o.Address = new Uri("http://localhost:5117");
+});
+builder.Services.AddGrpcClient<CategoryService.Grpc.CategoryService.CategoryServiceClient>(o =>
+{
+    o.Address = new Uri("http://localhost:5117");
+});
 builder.Services.AddGrpcClient<GrpcCommentService.CommentService.CommentServiceClient>(o =>
 {
     o.Address = new Uri("http://localhost:5117");

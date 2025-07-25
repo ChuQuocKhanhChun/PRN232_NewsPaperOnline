@@ -3,80 +3,24 @@
   "WorkspaceRootPath": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F1FB0833-59FA-4388-8BD1-83BF93E7DD5C}|GrpcMicroservice\\GrpcMicroservice.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\grpcmicroservice\\services\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1FB0833-59FA-4388-8BD1-83BF93E7DD5C}|GrpcMicroservice\\GrpcMicroservice.csproj|solutionrelative:grpcmicroservice\\services\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\migrations\\20250725014803_tenmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\migrations\\20250725014803_tenmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1FB0833-59FA-4388-8BD1-83BF93E7DD5C}|GrpcMicroservice\\GrpcMicroservice.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\grpcmicroservice\\protos\\comment.proto||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{F1FB0833-59FA-4388-8BD1-83BF93E7DD5C}|GrpcMicroservice\\GrpcMicroservice.csproj|solutionrelative:grpcmicroservice\\protos\\comment.proto||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\protos\\comment.proto||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\protos\\comment.proto||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\profiles\\articleprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\profiles\\articleprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\dto\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\dto\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\models\\prn232finalprojectcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\models\\prn232finalprojectcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\controllers\\myarticlescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\controllers\\myarticlescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\controllers\\articlemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\controllers\\articlemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\repository\\implement\\authrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\repository\\implement\\authrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\controllers\\auth2controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\controllers\\auth2controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\views\\admin\\statistics.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\views\\admin\\statistics.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\repository\\implement\\articlerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\repository\\implement\\articlerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\views\\admin\\allarticles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\views\\admin\\allarticles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\views\\admin\\pendingarticles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\views\\admin\\pendingarticles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\models\\statisticviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\models\\statisticviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F1FB0833-59FA-4388-8BD1-83BF93E7DD5C}|GrpcMicroservice\\GrpcMicroservice.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\grpcmicroservice\\services\\articleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -89,74 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F1FB0833-59FA-4388-8BD1-83BF93E7DD5C}|GrpcMicroservice\\GrpcMicroservice.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\grpcmicroservice\\protos\\article.proto||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{F1FB0833-59FA-4388-8BD1-83BF93E7DD5C}|GrpcMicroservice\\GrpcMicroservice.csproj|solutionrelative:grpcmicroservice\\protos\\article.proto||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\seeddata\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\seeddata\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\models\\articlelistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\models\\articlelistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\controllers\\articlescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\controllers\\articlescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\views\\articlemanagement\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\views\\articlemanagement\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\models\\article.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\models\\article.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\services\\implement\\cloudinaryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\services\\implement\\cloudinaryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\models\\createarticleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\models\\createarticleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\views\\articlemanagement\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\views\\articlemanagement\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\views\\articlemanagement\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\views\\articlemanagement\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\models\\editarticleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\models\\editarticleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\models\\createaccountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\models\\createaccountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEBE4146-B5AB-4EBB-966A-A9B1E07B3F77}|PRN232_FinalProject\\PRN232_FinalProject.csproj|solutionrelative:prn232_finalproject\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\views\\article\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\views\\article\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|d:\\github1\\prn232_newspaperonline\\prn232_finalproject\\prn232_finalproject_client\\models\\editaccountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C525F61F-EF40-412A-8543-FC8A990DB3CD}|PRN232_FinalProject_Client\\PRN232_FinalProject_Client.csproj|solutionrelative:prn232_finalproject_client\\models\\editaccountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -187,512 +63,105 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CommentService.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Services\\CommentService.cs",
-              "RelativeDocumentMoniker": "GrpcMicroservice\\Services\\CommentService.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Services\\CommentService.cs",
-              "RelativeToolTip": "GrpcMicroservice\\Services\\CommentService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAAfAAAAAAAAAA==",
+              "Title": "AuthRepository.cs",
+              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Repository\\Implement\\AuthRepository.cs",
+              "RelativeDocumentMoniker": "PRN232_FinalProject\\Repository\\Implement\\AuthRepository.cs",
+              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Repository\\Implement\\AuthRepository.cs",
+              "RelativeToolTip": "PRN232_FinalProject\\Repository\\Implement\\AuthRepository.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwCYAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:49:15.566Z",
+              "WhenOpened": "2025-07-25T22:28:08.328Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "20250725014803_TenMigration.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Migrations\\20250725014803_TenMigration.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Migrations\\20250725014803_TenMigration.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Migrations\\20250725014803_TenMigration.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Migrations\\20250725014803_TenMigration.cs",
-              "ViewState": "AgIAAFgAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:48:10.69Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "comment.proto",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Protos\\comment.proto",
-              "RelativeDocumentMoniker": "GrpcMicroservice\\Protos\\comment.proto",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Protos\\comment.proto",
-              "RelativeToolTip": "GrpcMicroservice\\Protos\\comment.proto",
-              "ViewState": "AgIAABUAAAAAAAAAAAAUwCMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003853|",
-              "WhenOpened": "2025-07-25T01:46:32.33Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CommentDto.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\DTO\\CommentDto.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\DTO\\CommentDto.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\DTO\\CommentDto.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\DTO\\CommentDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:44:59.122Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ArticleProfile.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Profiles\\ArticleProfile.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Profiles\\ArticleProfile.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Profiles\\ArticleProfile.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Profiles\\ArticleProfile.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAUwAoAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:44:33.375Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Prn232FinalProjectContext.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Models\\Prn232FinalProjectContext.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Models\\Prn232FinalProjectContext.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Models\\Prn232FinalProjectContext.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Models\\Prn232FinalProjectContext.cs",
-              "ViewState": "AgIAAJoAAAAAAAAAAADwv6QAAABQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:43:51.625Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MyArticlesController.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Controllers\\MyArticlesController.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Controllers\\MyArticlesController.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Controllers\\MyArticlesController.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Controllers\\MyArticlesController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:43:41.589Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Comment.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Models\\Comment.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Models\\Comment.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Models\\Comment.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Models\\Comment.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAsAAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:41:06.953Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ArticleController.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\ArticleController.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Controllers\\ArticleController.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\ArticleController.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Controllers\\ArticleController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:13:24.515Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "ArticleRepository.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Repository\\Implement\\ArticleRepository.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Repository\\Implement\\ArticleRepository.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Repository\\Implement\\ArticleRepository.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Repository\\Implement\\ArticleRepository.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAYwBsAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:08:17.813Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Controllers\\HomeController.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T01:07:47.982Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "AllArticles.cshtml",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Admin\\AllArticles.cshtml",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Views\\Admin\\AllArticles.cshtml",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Admin\\AllArticles.cshtml",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Views\\Admin\\AllArticles.cshtml",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAADUAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-25T00:55:08.626Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "DbInitializer.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\SeedData\\DbInitializer.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\SeedData\\DbInitializer.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\SeedData\\DbInitializer.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\SeedData\\DbInitializer.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T00:45:38.897Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAALAAAAAAAAAAAAAAAL4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-25T00:43:57.27Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "PendingArticles.cshtml",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Admin\\PendingArticles.cshtml",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Views\\Admin\\PendingArticles.cshtml",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Admin\\PendingArticles.cshtml",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Views\\Admin\\PendingArticles.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAB8AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-25T00:39:00.677Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Controllers\\AdminController.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Controllers\\AdminController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T00:32:58.983Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "ArticlesController.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Controllers\\ArticlesController.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Controllers\\ArticlesController.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Controllers\\ArticlesController.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Controllers\\ArticlesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T00:22:29.02Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\ArticleManagement\\Index.cshtml",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Views\\ArticleManagement\\Index.cshtml",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\ArticleManagement\\Index.cshtml",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Views\\ArticleManagement\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-24T23:45:07.882Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\appsettings.json",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\appsettings.json",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\appsettings.json",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\appsettings.json",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-24T22:35:03.731Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Program.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Program.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Program.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Program.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAqwA8AAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T22:32:09.776Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Program.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Program.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Program.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Program.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T22:31:56.945Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "CloudinaryService.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Services\\Implement\\CloudinaryService.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Services\\Implement\\CloudinaryService.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Services\\Implement\\CloudinaryService.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Services\\Implement\\CloudinaryService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T22:01:16.316Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Controllers\\AuthController.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAowFwAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T22:00:35.702Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Controllers\\UserController.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\UserController.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:58:06.365Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
               "Title": "Auth2Controller.cs",
               "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\Auth2Controller.cs",
               "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Controllers\\Auth2Controller.cs",
               "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\Auth2Controller.cs",
               "RelativeToolTip": "PRN232_FinalProject_Client\\Controllers\\Auth2Controller.cs",
-              "ViewState": "AgIAAHEAAAAAAAAAAAAowHwAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAgwG0AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:57:59.958Z",
+              "WhenOpened": "2025-07-25T22:27:43.531Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\ArticleManagement\\Edit.cshtml",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Views\\ArticleManagement\\Edit.cshtml",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\ArticleManagement\\Edit.cshtml",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Views\\ArticleManagement\\Edit.cshtml",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAAC4AAAASAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Statistics.cshtml",
+              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Admin\\Statistics.cshtml",
+              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Views\\Admin\\Statistics.cshtml",
+              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Admin\\Statistics.cshtml",
+              "RelativeToolTip": "PRN232_FinalProject_Client\\Views\\Admin\\Statistics.cshtml",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAqwH4AAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-24T21:54:18.194Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Article\\Create.cshtml",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Views\\Article\\Create.cshtml",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\Article\\Create.cshtml",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Views\\Article\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-24T21:53:25.261Z",
+              "WhenOpened": "2025-07-25T22:25:07.695Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "comment.proto",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Protos\\comment.proto",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Protos\\comment.proto",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Protos\\comment.proto",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Protos\\comment.proto",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAUwB8AAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003853|",
-              "WhenOpened": "2025-07-24T21:50:33.489Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ArticleManagementController.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\ArticleManagementController.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Controllers\\ArticleManagementController.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\ArticleManagementController.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Controllers\\ArticleManagementController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA5AAAAAAAAAA==",
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Controllers\\AdminController.cs",
+              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "PRN232_FinalProject_Client\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAYwD4AAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:48:41.107Z",
+              "WhenOpened": "2025-07-25T22:24:22.842Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 4,
+              "Title": "StatisticViewModel.cs",
+              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\StatisticViewModel.cs",
+              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Models\\StatisticViewModel.cs",
+              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\StatisticViewModel.cs",
+              "RelativeToolTip": "PRN232_FinalProject_Client\\Models\\StatisticViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-25T22:23:52.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "ArticleService.cs",
               "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Services\\ArticleService.cs",
               "RelativeDocumentMoniker": "GrpcMicroservice\\Services\\ArticleService.cs",
               "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Services\\ArticleService.cs",
               "RelativeToolTip": "GrpcMicroservice\\Services\\ArticleService.cs",
-              "ViewState": "AgIAAG8BAAAAAAAAAAAiwH0BAABGAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAEYAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:43:49.509Z",
+              "WhenOpened": "2025-07-25T22:21:29.555Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Article.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Models\\Article.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject\\Models\\Article.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject\\Models\\Article.cs",
-              "RelativeToolTip": "PRN232_FinalProject\\Models\\Article.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAA9wC4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:39:44.295Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "CreateArticleViewModel.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\CreateArticleViewModel.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Models\\CreateArticleViewModel.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\CreateArticleViewModel.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Models\\CreateArticleViewModel.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAA1wBsAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:36:10.407Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "EditArticleViewModel.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\EditArticleViewModel.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Models\\EditArticleViewModel.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\EditArticleViewModel.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Models\\EditArticleViewModel.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAcwCEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:35:41.574Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "EditAccountViewModel.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\EditAccountViewModel.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Models\\EditAccountViewModel.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\EditAccountViewModel.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Models\\EditAccountViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:35:37.169Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "CreateAccountViewModel.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\CreateAccountViewModel.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Models\\CreateAccountViewModel.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\CreateAccountViewModel.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Models\\CreateAccountViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:35:36.102Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "ArticleListViewModel.cs",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\ArticleListViewModel.cs",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Models\\ArticleListViewModel.cs",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Models\\ArticleListViewModel.cs",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Models\\ArticleListViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:35:31.585Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "article.proto",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Protos\\article.proto",
-              "RelativeDocumentMoniker": "GrpcMicroservice\\Protos\\article.proto",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Protos\\article.proto",
-              "RelativeToolTip": "GrpcMicroservice\\Protos\\article.proto",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAAwG0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003853|",
-              "WhenOpened": "2025-07-24T21:33:05.988Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 6,
               "Title": "article.proto",
               "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Protos\\article.proto",
               "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Protos\\article.proto",
               "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Protos\\article.proto",
               "RelativeToolTip": "PRN232_FinalProject_Client\\Protos\\article.proto",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAAwG0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAUwIsAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003853|",
-              "WhenOpened": "2025-07-24T21:32:07.26Z",
+              "WhenOpened": "2025-07-25T22:21:17.304Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\ArticleManagement\\Create.cshtml",
-              "RelativeDocumentMoniker": "PRN232_FinalProject_Client\\Views\\ArticleManagement\\Create.cshtml",
-              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\PRN232_FinalProject_Client\\Views\\ArticleManagement\\Create.cshtml",
-              "RelativeToolTip": "PRN232_FinalProject_Client\\Views\\ArticleManagement\\Create.cshtml",
-              "ViewState": "AgIAACUAAAAAAAAAAAAAACcAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-24T21:30:40.323Z",
+              "DocumentIndex": 7,
+              "Title": "article.proto",
+              "DocumentMoniker": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Protos\\article.proto",
+              "RelativeDocumentMoniker": "GrpcMicroservice\\Protos\\article.proto",
+              "ToolTip": "D:\\Github1\\PRN232_NewsPaperOnline\\PRN232_FinalProject\\GrpcMicroservice\\Protos\\article.proto",
+              "RelativeToolTip": "GrpcMicroservice\\Protos\\article.proto",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAUwKUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003853|",
+              "WhenOpened": "2025-07-25T22:20:46.7Z",
               "EditorCaption": ""
             }
           ]

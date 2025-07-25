@@ -27,6 +27,8 @@
     <Protobuf Include="Protos\article.proto" GrpcServices="Client" />
     <Protobuf Include="Protos\comment.proto" GrpcServices="Client" />
     <Protobuf Include="Protos\greet.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\tag.proto" GrpcServices="Client" />
+	  <Protobuf Include="Protos\category.proto" GrpcServices="Client" />
   </ItemGroup>
 
   <ItemGroup>

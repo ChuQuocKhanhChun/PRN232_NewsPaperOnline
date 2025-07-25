@@ -1,0 +1,73 @@
+﻿@using PRN232_FinalProject_Client.Models
+@model CategoryListViewModel
+
+@{
+    ViewData["Title"] = "Quản lý Categories";
+}
+
+<h1>Quản lý Categories</h1>
+
+<p>
+    <a asp-action="CreateCategory" class="btn btn-primary">Tạo Thể Loại Mới</a>
+</p>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên Category</th>
+            <th>Mô tả</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Categories != null && Model.Categories.Any())
+        {
+            @foreach (var category in Model.Categories)
+            {
+                <tr>
+                    <td>@category.CategoryId</td>
+                    <td>@category.Name</td>
+                    <td>@(string.IsNullOrEmpty(category.Description) ? "N/A" : category.Description)</td>
+                    <td>
+                        <span class="badge @(category.IsActive ? "bg-success" : "bg-danger")">
+                            @(category.IsActive ? "Hoạt động" : "Vô hiệu hóa")
+                        </span>
+                    </td>
+                    <td>
+                        <a asp-action="EditCategory" asp-route-id="@category.CategoryId" class="btn btn-warning btn-sm">Sửa</a>
+                        <form asp-action="DeleteCategory" method="post" asp-route-id="@category.CategoryId" onsubmit="return confirm('Bạn có chắc chắn muốn xóa category này không?');" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        </form>
+                        <form asp-action="ToggleCategoryActiveStatus" method="post" asp-route-id="@category.CategoryId" style="display:inline;">
+                            <button type="submit" class="btn @(category.IsActive ? "btn-secondary" : "btn-info") btn-sm">
+                                @(category.IsActive ? "Vô hiệu hóa" : "Kích hoạt")
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Không có thể loại nào.</td>
+            </tr>
+        }
+    </tbody>
+</table>

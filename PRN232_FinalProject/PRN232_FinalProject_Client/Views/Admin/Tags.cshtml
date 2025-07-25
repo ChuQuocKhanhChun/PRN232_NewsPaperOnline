@@ -1,0 +1,60 @@
+﻿@using PRN232_FinalProject_Client.Models
+@model TagListViewModel
+
+@{
+    ViewData["Title"] = "Quản lý Tags";
+}
+
+<h1>Quản lý Nhãn</h1>
+
+<p>
+    <a asp-action="CreateTag" class="btn btn-primary">Tạo Tag Mới</a>
+</p>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên Tag</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Tags != null && Model.Tags.Any())
+        {
+            @foreach (var tag in Model.Tags)
+            {
+                <tr>
+                    <td>@tag.TagId</td>
+                    <td>@tag.Name</td>
+                    <td>
+                        <a asp-action="EditTag" asp-route-id="@tag.TagId" class="btn btn-warning btn-sm">Sửa</a>
+                        <form asp-action="DeleteTag" method="post" asp-route-id="@tag.TagId" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tag này không?');" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3">Không có tags nào.</td>
+            </tr>
+        }
+    </tbody>
+</table>

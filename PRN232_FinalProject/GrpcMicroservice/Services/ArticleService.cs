@@ -17,6 +17,98 @@ namespace GrpcMicroservice.Services
             _context = context;
             _logger = logger;
         }
+        public override async Task<MostLikedArticlesResponse> GetMostLikedArticles(MostLikedArticlesRequest request, ServerCallContext context)
+        {
+            var response = new MostLikedArticlesResponse();
+            IQueryable<Article> query = _context.Articles
+                                        .Where(a=> a.IsDeleted == false);
+
+            // Áp dụng bộ lọc ngày nếu có
+            if (!string.IsNullOrEmpty(request.StartDate) && DateTime.TryParse(request.StartDate, out DateTime startDate))
+            {
+                query = query.Where(a => a.PublishedDate >= startDate);
+            }
+            if (!string.IsNullOrEmpty(request.EndDate) && DateTime.TryParse(request.EndDate, out DateTime endDate))
+            {
+                endDate = endDate.AddDays(1).AddTicks(-1);
+                query = query.Where(a => a.PublishedDate <= endDate);
+            }
+
+            var articles = await query
+                                .OrderByDescending(a => a.ArticleLikes.Count()) // Sắp xếp theo LikesCount
+                                .Take(request.Limit > 0 ? request.Limit : 10) // Lấy top X bài viết, mặc định 10
+                                .Select(a => new MostLikedArticleModel // Map sang MostLikedArticleModel
+                                {
+                                    ArticleId = a.ArticleId.ToString(),
+                                    Title = a.Title,
+                                    Author = a.Author != null ? a.Author.FullName : "Unknown",
+                                    LikesCount = a.ArticleLikes.Count(), // Lấy LikesCount
+                                    PublishedDate = a.PublishedDate.HasValue ? a.PublishedDate.Value.ToString("yyyy-MM-dd") : ""
+                                })
+                                .ToListAsync();
+
+            response.Articles.AddRange(articles);
+            _logger.LogInformation("Đã lấy {Count} bài viết được like nhiều nhất.", articles.Count);
+            return response;
+        }
+
+        
+        // Trong ArticleService/Services/ArticleGrpcService.cs (giả sử có DbContext và Article entity)
+        public override async Task<MostViewedArticlesResponse> GetMostViewedArticles(MostViewedArticlesRequest request, ServerCallContext context)
+        {
+            var response = new MostViewedArticlesResponse();
+            IQueryable<Article> query = _context.Articles
+                                            .Where(a =>  a.IsDeleted == false); // Chỉ bài đã xuất bản và không bị xóa
+
+            // Áp dụng bộ lọc ngày nếu có
+            if (!string.IsNullOrEmpty(request.StartDate) && DateTime.TryParse(request.StartDate, out DateTime startDate))
+            {
+                query = query.Where(a => a.PublishedDate >= startDate);
+            }
+            if (!string.IsNullOrEmpty(request.EndDate) && DateTime.TryParse(request.EndDate, out DateTime endDate))
+            {
+                // Thêm một ngày để bao gồm toàn bộ ngày cuối cùng
+                endDate = endDate.AddDays(1).AddTicks(-1);
+                query = query.Where(a => a.PublishedDate <= endDate);
+            }
+
+            var articles = await query
+                                .OrderByDescending(a => a.Views)
+                                .Take(request.Limit > 0 ? request.Limit : 10) // Lấy top X bài viết, mặc định 10
+                                .Select(a => new MostViewedArticleModel
+                                {
+                                    ArticleId = a.ArticleId.ToString(),
+                                    Title = a.Title,
+                                    Author = a.Author != null ? a.Author.FullName : "Unknown", // Giả sử Article có Navigation Property đến Account
+                                    ViewCount = a.Views ?? 0,
+                                    PublishedDate = a.PublishedDate.HasValue ? a.PublishedDate.Value.ToString("yyyy-MM-dd") : ""
+                                })
+                                .ToListAsync();
+
+            response.Articles.AddRange(articles);
+            _logger.LogInformation("Đã lấy {Count} bài viết được xem nhiều nhất.", articles.Count);
+            return response;
+        }
+
+        public override async Task<TotalArticleViewsResponse> GetTotalArticleViews(TotalArticleViewsRequest request, ServerCallContext context)
+        {
+            IQueryable<Article> query = _context.Articles
+                                            .Where(a=> a.IsDeleted == false);
+
+            if (!string.IsNullOrEmpty(request.StartDate) && DateTime.TryParse(request.StartDate, out DateTime startDate))
+            {
+                query = query.Where(a => a.PublishedDate >= startDate);
+            }
+            if (!string.IsNullOrEmpty(request.EndDate) && DateTime.TryParse(request.EndDate, out DateTime endDate))
+            {
+                endDate = endDate.AddDays(1).AddTicks(-1);
+                query = query.Where(a => a.PublishedDate <= endDate);
+            }
+
+            var totalViews = await query.SumAsync(a => a.Views ?? 0);
+            _logger.LogInformation("Tổng lượt xem bài viết: {TotalViews}", totalViews);
+            return new TotalArticleViewsResponse { TotalViews = totalViews };
+        }
         public override async Task<TagList> GetAllTags(GrpcArticleService.Empty request, ServerCallContext context) // <-- THÊM PHƯƠNG THỨC NÀY
         {
             var list = new TagList();

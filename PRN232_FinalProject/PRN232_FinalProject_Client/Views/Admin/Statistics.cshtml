@@ -1,0 +1,159 @@
+﻿@using PRN232_FinalProject_Client.Models
+@model StatisticViewModel
+
+@{
+    ViewData["Title"] = "Báo cáo thống kê";
+}
+
+<h1>Báo cáo thống kê</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="card mb-4">
+    <div class="card-header">
+        Lọc theo khoảng thời gian
+    </div>
+    <div class="card-body">
+        <form asp-action="Statistics" method="get" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label asp-for="StartDate" class="form-label"></label>
+                <input type="date" asp-for="StartDate" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="EndDate" class="form-label"></label>
+                <input type="date" asp-for="EndDate" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary">Xem báo cáo</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Tổng lượt xem bài viết</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.TotalArticleViews</h5>
+                <p class="card-text">Tổng số lượt xem các bài viết trong khoảng thời gian đã chọn.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Người dùng mới</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.NewUsersCount</h5>
+                <p class="card-text">Số lượng tài khoản người dùng mới tạo trong khoảng thời gian đã chọn.</p>
+            </div>
+        </div>
+    </div>
+    @* Thêm các card thống kê khác nếu có *@
+    @*
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Tổng bình luận</div>
+            <div class="card-body">
+                <h5 class="card-title">0</h5> // Thay bằng @Model.TotalComments
+                <p class="card-text">Tổng số bình luận trên tất cả bài viết.</p>
+            </div>
+        </div>
+    </div>
+    *@
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">
+        Bài viết được đọc nhiều nhất (Top 10)
+        @if (Model.StartDate.HasValue && Model.EndDate.HasValue)
+        {
+            <span>từ @Model.StartDate.Value.ToShortDateString() đến @Model.EndDate.Value.ToShortDateString()</span>
+        }
+    </div>
+    <div class="card-body">
+        @if (Model.MostViewedArticles != null && Model.MostViewedArticles.Any())
+        {
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Tác giả</th>
+                        <th>Lượt xem</th>
+                        <th>Ngày xuất bản</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var article in Model.MostViewedArticles)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Details", "Article", new { id = article.ArticleId })">@article.Title</a>
+                            </td>
+                            <td>@article.Author</td>
+                            <td>@article.ViewCount</td>
+                            <td>@article.PublishedDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Không có bài viết nào được tìm thấy hoặc không có dữ liệu lượt xem trong khoảng thời gian này.</p>
+        }
+    </div>
+
+</div>
+<div class="card mt-4">
+    <div class="card-header">
+        Bài viết được Like nhiều nhất (Top 10)
+        @if (Model.StartDate.HasValue && Model.EndDate.HasValue)
+        {
+            <span>từ @Model.StartDate.Value.ToShortDateString() đến @Model.EndDate.Value.ToShortDateString()</span>
+        }
+    </div>
+    <div class="card-body">
+        @if (Model.MostLikedArticles != null && Model.MostLikedArticles.Any())
+        {
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Tác giả</th>
+                        <th>Lượt Like</th>
+                        <th>Ngày xuất bản</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var article in Model.MostLikedArticles)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Details", "Article", new { id = article.ArticleId })">@article.Title</a>
+                            </td>
+                            <td>@article.Author</td>
+                            <td>@article.LikesCount</td>
+                            <td>@article.PublishedDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Không có bài viết nào được Like trong khoảng thời gian này.</p>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
