@@ -1,29 +1,58 @@
-﻿syntax = "proto3";
+﻿// GrpcMicroservice/Protos/comment.proto
+syntax = "proto3";
 
 option csharp_namespace = "GrpcCommentService";
 
+import "google/protobuf/empty.proto";
+// import "article.proto"; // Chỉ import nếu bạn cần các message từ article.proto ở đây
+
+package comment;
+
 service CommentService {
   rpc AddComment (AddCommentRequest) returns (CommentResponse);
-  rpc DeleteComment (DeleteCommentRequest) returns (DeleteCommentResult);
+  rpc GetCommentsByArticle (GetCommentsByArticleRequest) returns (CommentsResponse);
+  rpc DeleteComment (DeleteCommentRequest) returns (DeleteCommentResponse);
+}
+
+message CommentResponse {
+  string id = 1;
+  string content = 2;
+  string createdAt = 3;
+  string authorId = 4;
+  string authorName = 5; // Để hiển thị tên người dùng của tác giả
+  string articleId = 6;
+  string parentCommentId = 7; // Nullable, nên string là ổn cho gRPC
+  bool isDeleted = 8;
+  // Các câu trả lời lồng nhau (tùy chọn, cho bình luận có phân cấp)
+  repeated CommentResponse replies = 9;
 }
 
 message AddCommentRequest {
+  string content = 1;
+  string authorId = 2;
+  string articleId = 3;
+  string parentCommentId = 4; // Nullable
+}
+
+message GetCommentsByArticleRequest {
   string articleId = 1;
-  string content = 2;
-  string userId = 3;
+  int32 pageNumber = 2;
+  int32 pageSize = 3;
+}
+
+message CommentsResponse {
+  repeated CommentResponse comments = 1;
+  int32 totalCount = 2;
+  int32 totalPages = 3;
+  int32 currentPage = 4;
+  int32 pageSize = 5;
 }
 
 message DeleteCommentRequest {
   string commentId = 1;
 }
 
-message CommentResponse {
-  string id = 1;
-  string content = 2;
-  string userId = 3;
-  string createdAt = 4;
-}
-
-message DeleteCommentResult {
+message DeleteCommentResponse {
   bool success = 1;
+  string message = 2;
 }

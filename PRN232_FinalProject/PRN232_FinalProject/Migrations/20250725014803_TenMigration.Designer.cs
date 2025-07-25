@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PRN232_FinalProject.Models;
 
@@ -11,9 +12,11 @@ using PRN232_FinalProject.Models;
 namespace PRN232_FinalProject.Migrations
 {
     [DbContext(typeof(Prn232FinalProjectContext))]
-    partial class Prn232FinalProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20250725014803_TenMigration")]
+    partial class TenMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

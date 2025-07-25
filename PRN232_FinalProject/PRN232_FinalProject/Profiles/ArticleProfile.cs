@@ -29,10 +29,7 @@ namespace PRN232_FinalProject.Profiles
             CreateMap<Tag, TagDto>().ReverseMap();
 
             // Comment ↔ CommentDto
-            CreateMap<Comment, CommentDto>()
-                .ForMember(dest => dest.UserFullName, opt => opt.MapFrom(src => src.User.FullName))
-                .ReverseMap()
-                .ForMember(dest => dest.User, opt => opt.Ignore());
+           
 
             
 

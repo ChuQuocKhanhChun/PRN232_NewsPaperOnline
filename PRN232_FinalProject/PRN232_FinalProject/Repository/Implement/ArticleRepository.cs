@@ -17,6 +17,7 @@ namespace PRN232_FinalProject.Repository.Implement
 
         public async Task<IEnumerable<ArticleDto>> GetAllAsync() => (IEnumerable<ArticleDto>)await _context.Articles
     .Include(a => a.Tags)
+            .Where(a=>a.Status == "Published"&&a.IsDeleted==false)
     .Select(a => new ArticleDto
     {
         ArticleID = a.ArticleId,

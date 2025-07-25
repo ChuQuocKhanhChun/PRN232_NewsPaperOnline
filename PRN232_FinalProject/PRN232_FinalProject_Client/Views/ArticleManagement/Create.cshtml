@@ -1,0 +1,72 @@
+﻿@using System.Security.Claims
+@model PRN232_FinalProject_Client.Models.CreateArticleViewModel
+
+@{
+    ViewData["Title"] = "Thêm Bài báo Mới";
+}
+
+<h1>Thêm Bài báo Mới</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input type="file" asp-for="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" asp-items="@Model.Categories" class="form-control">
+                    <option value="">-- Chọn Danh mục --</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SelectedTagIds" class="control-label"></label>
+                @* Sử dụng select multiple để chọn nhiều tags *@
+                <select asp-for="SelectedTagIds" asp-items="@Model.AvailableTags" multiple="multiple" class="form-control">
+                </select>
+                <span asp-validation-for="SelectedTagIds" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="AuthorId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Tạo" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Kích hoạt Select2 (nếu bạn muốn giao diện đẹp hơn cho multi-select)
+        // Yêu cầu thêm thư viện Select2 vào layout hoặc trang này
+        $(document).ready(function() {
+            $('#SelectedTagIds').select2({
+                placeholder: "Chọn hoặc tìm kiếm từ khóa",
+                allowClear: true // Cho phép xóa lựa chọn
+            });
+        });
+    </script>
+}

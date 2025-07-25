@@ -6,18 +6,63 @@ service ArticleService {
   rpc CreateArticle (CreateArticleRequest) returns (ArticleResponse);
   rpc UpdateArticle (UpdateArticleRequest) returns (ArticleResponse);
   rpc DeleteArticle (DeleteArticleRequest) returns (DeleteArticleResult);
+  rpc GetAllArticles (Empty) returns (ArticleList); // <-- THÊM DÒNG NÀY
+  rpc GetArticleById (DeleteArticleRequest) returns (ArticleResponse); // <-- THÊM DÒNG NÀY
+  rpc GetAllCategories (Empty) returns (CategoryList);
+  rpc GetAllTags (Empty) returns (TagList); 
+  rpc GetPendingArticles (Empty) returns (ArticleList); // Lấy các bài cần phê duyệt (Status = "Draft")
+  rpc PublishArticle (PublishArticleRequest) returns (PublishArticleResponse); // Chuyển trạng thái bài báo thành Published
+  rpc RemoveArticle (RemoveArticleRequest) returns (RemoveArticleResponse); // Gỡ bài báo (IsDeleted = true)
+   rpc RestoreArticle (RestoreArticleRequest) returns (RestoreArticleResponse);
+   rpc GetAllArticlesForAdmin (Empty) returns (ArticleList);
+}
+// MỚI/XÁC NHẬN: Message cho yêu cầu khôi phục bài báo
+message RestoreArticleRequest {
+  string articleId = 1;
 }
 
+// MỚI/XÁC NHẬN: Message cho phản hồi khôi phục bài báo
+message RestoreArticleResponse {
+  bool success = 1;
+  string message = 2;
+}
+message PublishArticleRequest {
+  string articleId = 1;
+}
+
+message PublishArticleResponse {
+  bool success = 1;
+  string message = 2; // Ví dụ: "Bài báo đã được xuất bản."
+}
+
+message RemoveArticleRequest {
+  string articleId = 1;
+}
+
+message RemoveArticleResponse {
+  bool success = 1;
+  string message = 2; // Ví dụ: "Bài báo đã được gỡ."
+}
+
+message GetArticleByIdRequest {
+  string id = 1; // Chỉ cần trường 'id' là đủ
+}
 message CreateArticleRequest {
   string title = 1;
   string content = 2;
   string authorId = 3;
+  string imageUrl = 4;
+  int32 categoryId = 5; // <-- THÊM DÒNG NÀY
+  repeated string tags = 6; // <-- THÊM DÒNG NÀY
 }
 
 message UpdateArticleRequest {
   string id = 1;
   string title = 2;
   string content = 3;
+  string imageUrl = 4;
+  int32 categoryId = 5; // <-- THÊM DÒNG NÀY
+  repeated string tags = 6; // <-- THÊM DÒNG NÀY
 }
 
 message DeleteArticleRequest {
@@ -30,8 +75,35 @@ message ArticleResponse {
   string content = 3;
   string authorId = 4;
   string createdAt = 5;
+  string imageUrl = 6;
+  int32 categoryId = 7; 
+  string categoryName = 8; 
+  repeated string tags = 9;
+  string publishedDate = 10;
+  string status = 11; // THÊM TRƯỜNG NÀY
+  bool isDeleted = 12; // THÊM TRƯỜNG NÀY
+  string authorName = 13; // THÊM TRƯỜNG NÀY
 }
 
 message DeleteArticleResult {
   bool success = 1;
 }
+message ArticleList { // <-- THÊM MESSAGE NÀY
+  repeated ArticleResponse articles = 1;
+}
+message CategoryResponse {
+  int32 id = 1;
+  string name = 2;
+}
+message CategoryList {
+  repeated CategoryResponse categories = 1;
+}
+message TagResponse { // <-- THÊM MESSAGE NÀY
+  int32 id = 1;
+  string name = 2;
+}
+
+message TagList { // <-- THÊM MESSAGE NÀY
+  repeated TagResponse tags = 1;
+}
+message Empty {} 

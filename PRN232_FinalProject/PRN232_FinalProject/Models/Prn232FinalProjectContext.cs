@@ -162,24 +162,26 @@ namespace PRN232_FinalProject.Models
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(e => e.CommentId);
-                entity.Property(e => e.CommentId).HasColumnName("CommentID");
-                entity.Property(e => e.ArticleId).HasColumnName("ArticleID");
-                entity.Property(e => e.CommentDate).HasDefaultValueSql("(getdate())").HasColumnType("datetime");
-                entity.Property(e => e.Content).HasMaxLength(1000);
-                entity.Property(e => e.IsApproved).HasDefaultValue(false);
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.Content).IsRequired().HasMaxLength(1000);
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()"); // Hoặc GETDATE()
 
+                // Quan hệ với ApplicationUser (Author)
+                entity.HasOne(d => d.Author)
+                      .WithMany() // Hoặc WithMany(u => u.Comments) nếu bạn thêm ICollection<Comment> vào ApplicationUser
+                      .HasForeignKey(d => d.AuthorId)
+                      .OnDelete(DeleteBehavior.Restrict); // Ngăn chặn xóa tầng nếu người dùng có bình luận
+
+                // Quan hệ với Article
                 entity.HasOne(d => d.Article)
-                    .WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.ArticleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Comments__Articl__534D60F1");
+                      .WithMany(p => p.Comments)
+                      .HasForeignKey(d => d.ArticleId)
+                      .OnDelete(DeleteBehavior.Cascade); // Xóa bình luận nếu bài viết bị xóa
 
-                entity.HasOne(d => d.User)
-                    .WithMany()
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Comments__UserID__52593CB8");
+                // Quan hệ tự tham chiếu cho ParentComment
+                entity.HasOne(d => d.ParentComment)
+                      .WithMany(p => p.InverseParentComment)
+                      .HasForeignKey(d => d.ParentCommentId)
+                      .OnDelete(DeleteBehavior.Restrict); // Ngăn chặn xóa tầng nếu bình luận cha bị xóa
             });
 
             modelBuilder.Entity<Tag>(entity =>

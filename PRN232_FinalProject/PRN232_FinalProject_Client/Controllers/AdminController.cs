@@ -1,6 +1,8 @@
 ﻿// PRN232_FinalProject_Client/Controllers/AdminController.cs
 
 using Grpc.Core; // Để bắt RpcException
+using GrpcArticleService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyProject.Grpc; // Namespace cho AccountService (đã định nghĩa trong account.proto)
 using PRN232_FinalProject_Client.Models;
@@ -9,15 +11,231 @@ using System.Threading.Tasks;
 
 namespace PRN232_FinalProject_Client.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+        private readonly ArticleService.ArticleServiceClient _articleClient;
         private readonly AccountService.AccountServiceClient _accountClient;
         private readonly ILogger<AdminController> _logger; // Nên có Logger để ghi log lỗi
 
-        public AdminController(AccountService.AccountServiceClient accountClient, ILogger<AdminController> logger)
+        public AdminController(AccountService.AccountServiceClient accountClient, ILogger<AdminController> logger, ArticleService.ArticleServiceClient articleClient)
         {
             _accountClient = accountClient;
             _logger = logger;
+            _articleClient = articleClient;
+        }
+        public async Task<IActionResult> PendingArticles()
+        {
+            var model = new Models.ArticleListViewModel(); // Sử dụng ViewModel đã có
+            try
+            {
+                // Gọi RPC để lấy danh sách các bài báo đang chờ duyệt
+                var response = await _articleClient.GetPendingArticlesAsync(new GrpcArticleService.Empty());
+                model.Articles = response.Articles.ToList();
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi lấy danh sách bài báo chờ duyệt: {Status}", ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Không thể tải bài báo chờ duyệt: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi tải bài báo chờ duyệt.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return View(model);
+        }
+
+        // POST: AdminArticle/PublishArticle
+        // Hành động để chuyển trạng thái bài báo từ "Draft" sang "Published"
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PublishArticle(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                TempData["ErrorMessage"] = "ID bài báo không hợp lệ.";
+                return RedirectToAction(nameof(PendingArticles));
+            }
+
+            try
+            {
+                var request = new PublishArticleRequest { ArticleId = id };
+                var response = await _articleClient.PublishArticleAsync(request);
+
+                if (response.Success)
+                {
+                    TempData["SuccessMessage"] = response.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = response.Message;
+                }
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi xuất bản bài báo: {Status}", ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Lỗi khi xuất bản bài báo: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi xuất bản bài báo.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return RedirectToAction(nameof(PendingArticles));
+        }
+
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveArticle(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                TempData["ErrorMessage"] = "ID bài báo không hợp lệ.";
+                return RedirectToAction(nameof(AllArticles)); // Chuyển hướng về trang AllArticles sau khi gỡ
+            }
+
+            try
+            {
+                var request = new RemoveArticleRequest { ArticleId = id };
+                var response = await _articleClient.RemoveArticleAsync(request);
+
+                if (response.Success)
+                {
+                    TempData["SuccessMessage"] = response.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = response.Message;
+                }
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi gỡ bài báo: {Status}", ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Lỗi khi gỡ bài báo: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi gỡ bài báo.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return RedirectToAction(nameof(AllArticles)); // Chuyển hướng về trang AllArticles
+        }
+
+        // POST: AdminArticle/RestoreArticle
+        // Hành động để khôi phục bài báo bằng cách đặt IsDeleted = false
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestoreArticle(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                TempData["ErrorMessage"] = "ID bài báo không hợp lệ.";
+                return RedirectToAction(nameof(AllArticles));
+            }
+
+            try
+            {
+                var request = new RestoreArticleRequest { ArticleId = id };
+                var response = await _articleClient.RestoreArticleAsync(request);
+
+                if (response.Success)
+                {
+                    TempData["SuccessMessage"] = response.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = response.Message;
+                }
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi khôi phục bài báo: {Status}", ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Lỗi khi khôi phục bài báo: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi khôi phục bài báo.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return RedirectToAction(nameof(AllArticles));
+        }
+
+        // GET: AdminArticle/AllArticles
+        // Hiển thị tất cả bài báo (bao gồm Draft, Published, IsDeleted) cho Admin
+        public async Task<IActionResult> AllArticles()
+        {
+            var model = new Models.ArticleListViewModel();
+            try
+            {
+                // Gọi RPC mới để lấy TẤT CẢ bài báo cho Admin (không lọc)
+                var response = await _articleClient.GetAllArticlesForAdminAsync(new GrpcArticleService.Empty());
+                model.Articles = response.Articles.ToList();
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi lấy tất cả bài báo cho Admin: {Status}", ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Không thể tải tất cả bài báo: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi tải tất cả bài báo cho Admin.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return View(model);
+        }
+
+        // Action tổng hợp để chuyển đổi trạng thái (tùy chọn, bạn có thể dùng các action riêng biệt ở trên)
+        // Nó sẽ cố gắng thực hiện Publish, Remove hoặc Restore dựa trên trạng thái hiện tại.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleArticleState(string id, string currentStatus, bool isDeleted)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                TempData["ErrorMessage"] = "ID bài báo không hợp lệ.";
+                return RedirectToAction(nameof(AllArticles));
+            }
+
+            try
+            {
+                if (isDeleted) // Nếu bài báo hiện đang bị gỡ (IsDeleted = true), thì khôi phục nó
+                {
+                    var restoreRequest = new RestoreArticleRequest { ArticleId = id };
+                    var restoreResponse = await _articleClient.RestoreArticleAsync(restoreRequest);
+                    if (restoreResponse.Success) TempData["SuccessMessage"] = restoreResponse.Message;
+                    else TempData["ErrorMessage"] = restoreResponse.Message;
+                }
+                else // Nếu bài báo chưa bị gỡ (IsDeleted = false)
+                {
+                    if (currentStatus == "Draft") // Nếu bài báo đang là Draft, Admin có thể xuất bản
+                    {
+                        var publishRequest = new PublishArticleRequest { ArticleId = id };
+                        var publishResponse = await _articleClient.PublishArticleAsync(publishRequest);
+                        if (publishResponse.Success) TempData["SuccessMessage"] = publishResponse.Message;
+                        else TempData["ErrorMessage"] = publishResponse.Message;
+                    }
+                    else if (currentStatus == "Published") // Nếu bài báo đang Published, Admin có thể gỡ (IsDeleted = true)
+                    {
+                        var removeRequest = new RemoveArticleRequest { ArticleId = id };
+                        var removeResponse = await _articleClient.RemoveArticleAsync(removeRequest);
+                        if (removeResponse.Success) TempData["SuccessMessage"] = removeResponse.Message;
+                        else TempData["ErrorMessage"] = removeResponse.Message;
+                    }
+                }
+            }
+            catch (RpcException ex)
+            {
+                _logger.LogError(ex, "Lỗi gRPC khi chuyển trạng thái bài báo: {Status}", ex.Status.Detail);
+                TempData["ErrorMessage"] = $"Lỗi khi chuyển trạng thái bài báo: {ex.Status.Detail}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi chung khi chuyển trạng thái bài báo.");
+                TempData["ErrorMessage"] = $"Có lỗi xảy ra: {ex.Message}";
+            }
+            return RedirectToAction(nameof(AllArticles));
         }
 
         // Action để hiển thị danh sách tất cả tài khoản
@@ -26,7 +244,7 @@ namespace PRN232_FinalProject_Client.Controllers
             try
             {
                 // Gọi gRPC để lấy tất cả tài khoản
-                var accountsList = await _accountClient.GetAllAccountsAsync(new Empty());
+                var accountsList = await _accountClient.GetAllAccountsAsync(new MyProject.Grpc.Empty());
 
                 // Truyền danh sách tài khoản sang View
                 return View(accountsList.Accounts); // View này sẽ cần model là IEnumerable<AccountReply>
@@ -53,7 +271,7 @@ namespace PRN232_FinalProject_Client.Controllers
             try
             {
                 // Gọi gRPC để lấy danh sách các vai trò
-                var rolesResponse = await _accountClient.GetAllRolesAsync(new Empty());
+                var rolesResponse = await _accountClient.GetAllRolesAsync(new MyProject.Grpc.Empty());
                 model.AvailableRoles = new List<string>(rolesResponse.Roles);
 
                 // Thêm một lựa chọn mặc định hoặc rỗng nếu cần
@@ -276,7 +494,7 @@ namespace PRN232_FinalProject_Client.Controllers
         {
             try
             {
-                var rolesResponse = await _accountClient.GetAllRolesAsync(new Empty());
+                var rolesResponse = await _accountClient.GetAllRolesAsync(new MyProject.Grpc.Empty());
                 model.AvailableRoles = new List<string>(rolesResponse.Roles);
             }
             catch (RpcException ex)
@@ -295,7 +513,7 @@ namespace PRN232_FinalProject_Client.Controllers
         {
             try
             {
-                var rolesResponse = await _accountClient.GetAllRolesAsync(new Empty());
+                var rolesResponse = await _accountClient.GetAllRolesAsync(new MyProject.Grpc.Empty());
                 model.AvailableRoles = new List<string>(rolesResponse.Roles);
             }
             catch (RpcException ex)

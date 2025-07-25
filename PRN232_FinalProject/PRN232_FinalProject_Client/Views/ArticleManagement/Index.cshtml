@@ -1,0 +1,63 @@
+﻿@model PRN232_FinalProject_Client.Models.ArticleListViewModel
+
+@{
+    ViewData["Title"] = "Quản lý Bài báo";
+}
+
+<h1>Quản lý Bài báo</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm Bài báo Mới</a>
+</p>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tiêu đề</th>
+            <th>Tác giả ID</th>
+            <th>Ngày tạo</th>
+            <th></th> <!-- Cột cho các nút hành động -->
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Articles != null && Model.Articles.Any())
+        {
+            @foreach (var item in Model.Articles)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AuthorId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Sửa</a> |
+                        <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc muốn xóa bài báo này không?');">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Không có bài báo nào để hiển thị.</td>
+            </tr>
+        }
+    </tbody>
+</table>

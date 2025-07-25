@@ -1,0 +1,59 @@
+﻿@model PRN232_FinalProject_Client.Models.ArticleListViewModel
+
+@{
+    ViewData["Title"] = "Bài báo chờ duyệt";
+}
+
+<h1>Bài báo chờ duyệt</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Tác giả</th>
+            <th>Danh mục</th>
+            <th>Ngày tạo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Articles != null && Model.Articles.Any())
+        {
+            @foreach (var article in Model.Articles)
+            {
+                <tr>
+                    <td>@article.Title</td>
+                    <td>@article.AuthorName</td>
+                    <td>@article.CategoryName</td>
+                    <td>@(DateTime.Parse(article.CreatedAt).ToString("dd/MM/yyyy HH:mm"))</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="ArticleManagement" asp-route-id="@article.Id" class="btn btn-info btn-sm me-1">Xem</a>
+                        <form asp-action="PublishArticle" asp-controller="Admin" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@article.Id" />
+                            <button type="submit" class="btn btn-success btn-sm me-1" onclick="return confirm('Bạn có chắc chắn muốn xuất bản bài báo này?');">Xuất bản</button>
+                        </form>
+                        <form asp-action="RemoveArticle" asp-controller="Admin" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@article.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn GỠ bài báo này (chuyển sang trạng thái đã xóa mềm)?');">Gỡ (Xóa mềm)</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Không có bài báo nào cần phê duyệt.</td>
+            </tr>
+        }
+    </tbody>
+</table>

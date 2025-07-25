@@ -1,0 +1,106 @@
+﻿@model PRN232_FinalProject_Client.Models.ArticleListViewModel
+
+@{
+    ViewData["Title"] = "Quản lý bài báo";
+}
+
+<h1>Tất cả bài báo</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Tác giả</th>
+            <th>Danh mục</th>
+            <th>Trạng thái</th>
+            <th>Đã Gỡ?</th>
+            <th>Ngày xuất bản</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Articles != null && Model.Articles.Any())
+        {
+            @foreach (var article in Model.Articles)
+            {
+                <tr>
+                    <td>@article.Title</td>
+                    <td>@article.AuthorName</td>
+                    <td>@article.CategoryName</td>
+                    <td>
+                        @if (article.Status == "Published")
+                        {
+                            <span class="badge bg-success">Published</span>
+                        }
+                        else if (article.Status == "Draft")
+                        {
+                            <span class="badge bg-info">Draft</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">@article.Status</span>
+                        }
+                    </td>
+                    <td>
+                        @if (article.IsDeleted)
+                        {
+                            <span class="badge bg-danger">Đã Gỡ</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-primary">Không</span>
+                        }
+                    </td>
+                    <td>
+                        @(string.IsNullOrEmpty(article.PublishedDate) ? "N/A" : DateTime.Parse(article.PublishedDate).ToString("dd/MM/yyyy HH:mm"))
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-controller="ArticleManagement" asp-route-id="@article.Id" class="btn btn-info btn-sm me-1">Xem</a>
+
+                        @* Nút hành động dựa trên trạng thái hiện tại *@
+                        @if (!article.IsDeleted) // Nếu bài báo CHƯA bị gỡ (IsDeleted = false)
+                        {
+                            if (article.Status == "Draft")
+                            {
+                                <form asp-action="PublishArticle" asp-controller="Admin" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@article.Id" />
+                                    <button type="submit" class="btn btn-success btn-sm me-1" onclick="return confirm('Bạn có chắc chắn muốn xuất bản bài báo này?');">Xuất bản</button>
+                                </form>
+                            }
+                            else if (article.Status == "Published")
+                            {
+                                @* Admin có thể gỡ bài (IsDeleted=true) từ đây nếu nó đang Published *@
+                                <form asp-action="RemoveArticle" asp-controller="Admin" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@article.Id" />
+                                    <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Bạn có chắc chắn muốn GỠ bài báo này (chuyển sang trạng thái đã xóa mềm)?');">Gỡ bài</button>
+                                </form>
+                            }
+                        }
+                        else // Nếu bài báo ĐÃ bị gỡ (IsDeleted = true)
+                        {
+                            <form asp-action="RestoreArticle" asp-controller="Admin" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@article.Id" />
+                                <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('Bạn có chắc chắn muốn KHÔI PHỤC bài báo này?');">Khôi phục</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7">Không có bài báo nào.</td>
+            </tr>
+        }
+    </tbody>
+</table>

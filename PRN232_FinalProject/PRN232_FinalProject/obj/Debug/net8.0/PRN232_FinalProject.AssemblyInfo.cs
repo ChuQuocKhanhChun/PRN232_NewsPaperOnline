@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PRN232_FinalProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+12ac87c31b722c49af5a924456149f17f3e56977")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+830782b461337904798a423a3c6d931693c19c7b")]
 [assembly: System.Reflection.AssemblyProductAttribute("PRN232_FinalProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PRN232_FinalProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

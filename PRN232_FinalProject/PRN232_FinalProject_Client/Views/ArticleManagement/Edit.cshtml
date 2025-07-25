@@ -1,0 +1,86 @@
+﻿@model PRN232_FinalProject_Client.Models.EditArticleViewModel
+
+@{
+    ViewData["Title"] = "Sửa Bài báo";
+}
+
+<h1>Sửa Bài báo</h1>
+
+<h4>ID: @Model.Id</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input type="file" asp-for="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <p class="mt-2">Ảnh hiện tại:</p>
+                    <img src="@Model.ImageUrl" alt="Ảnh bài báo" class="img-thumbnail" style="max-width:200px; max-height:200px;" />
+                    <input type="hidden" asp-for="ImageUrl" />
+     @* Giữ lại URL cũ nếu không upload ảnh mới *@
+                }
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" asp-items="@Model.Categories" class="form-control">
+                    <option value="">-- Chọn Danh mục --</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SelectedTagIds" class="control-label"></label>
+                @* Sử dụng select multiple để chọn nhiều tags *@
+                <select asp-for="SelectedTagIds" asp-items="@Model.AvailableTags" multiple="multiple" class="form-control">
+                </select>
+                <span asp-validation-for="SelectedTagIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AuthorId" class="control-label"></label>
+                <input asp-for="AuthorId" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedAt" class="control-label"></label>
+                <input asp-for="CreatedAt" class="form-control" readonly />
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function() {
+            $('#SelectedTagIds').select2({
+                placeholder: "Chọn hoặc tìm kiếm từ khóa",
+                allowClear: true
+            });
+        });
+    </script>
+}

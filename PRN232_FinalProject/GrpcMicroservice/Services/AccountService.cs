@@ -189,7 +189,7 @@ namespace GrpcMicroservice.Services
                         FullName = user.FullName,         // Điền FullName
                         Email = user.Email,               // Điền Email
                         IsActive = user.IsActive,         // Điền IsActive
-                        Image = user.Image ?? "/images/default_user.png" // Điền ImageUrl, dùng default nếu null
+                        Image = user.Image ?? "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" // Điền ImageUrl, dùng default nếu null
                         // Bỏ trường Message nếu đã xóa khỏi proto
                     });
                 }

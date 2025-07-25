@@ -1,4 +1,5 @@
-﻿@inject IHttpContextAccessor HttpContextAccessor
+﻿@using System.Security.Claims
+@inject IHttpContextAccessor HttpContextAccessor
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,6 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PRN232_FinalProject_Client.styles.css" asp-append-version="true" />
     <style>
-        <style >
         body {
             background: #F9FAFB;
             font-family: 'Noto Sans', sans-serif;
@@ -136,8 +136,6 @@
                     text-decoration: underline;
                 }
     </style>
-
-    </style>
 </head>
 <body>
     <header>
@@ -160,9 +158,19 @@
                             <a class="nav-link text-dark" asp-controller="Article" asp-action="Index">Báo Online</a>
                         </li>
                         @{
-                            var fullName = HttpContextAccessor.HttpContext?.Session.GetString("FullName");
+                            // Kiểm tra xem người dùng đã đăng nhập chưa bằng ClaimsPrincipal
+                            var isAuthenticated = User.Identity.IsAuthenticated;
+                            string fullName = string.Empty;
+
+                            // Nếu đã đăng nhập, tìm claim "FullName"
+                            if (isAuthenticated)
+                            {
+                                fullName = User.FindFirst("FullName")?.Value;
+                                // Nếu bạn lưu tên đầy đủ trong ClaimTypes.Name, bạn có thể dùng:
+                                // fullName = User.Identity.Name;
+                            }
                         }
-                        @if (!string.IsNullOrEmpty(fullName))
+                        @if (isAuthenticated)
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
@@ -181,11 +189,18 @@
                             </li>
                         }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Article" asp-action="Create">Tạo bài báo</a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Quản lí tài khoản</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="PendingArticles">Đăng bài</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllArticles">Quản lí bài viết</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="ArticleManagement" asp-action="Index">Quản lí bài báo</a>
                         </li>
                     </ul>
                 </div>

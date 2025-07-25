@@ -1,5 +1,7 @@
 ﻿using GrpcMicroservice.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using PRN232_FinalProject.Services.Implement;
+using PRN232_FinalProject.Services.Interfaces;
 using PRN232_FinalProject_Client.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,14 +11,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient<PRN232_FinalProject_Client.Services.ArticleService>();
 builder.Services.AddHttpClient<PRN232_FinalProject_Client.Services.AuthService>();
 builder.Services.AddHttpClient<PRN232_FinalProject_Client.Services.UserService>();
+builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<PRN232_FinalProject_Client.Services.UserService>();
 // Thêm xác thực cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/Auth2/Login"; // Đường dẫn khi chưa đăng nhập
-        options.AccessDeniedPath = "/Auth2/AccessDenied"; // Đường dẫn khi không có quyền
+        options.AccessDeniedPath = "/Auth2/AccessDeny"; // Đường dẫn khi không có quyền
         options.Cookie.HttpOnly = true;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Yêu cầu HTTPS
         options.Cookie.SameSite = SameSiteMode.Strict; // Bảo mật SameSite

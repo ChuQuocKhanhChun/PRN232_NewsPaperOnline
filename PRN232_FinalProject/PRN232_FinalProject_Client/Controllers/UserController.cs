@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace PRN232_FinalProject_Client.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly UserService _userService;
@@ -19,7 +20,7 @@ namespace PRN232_FinalProject_Client.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
         [HttpPost]
-        [Authorize]
+        
         public async Task<IActionResult> UpdateProfile(UpdateUserProfileDto model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

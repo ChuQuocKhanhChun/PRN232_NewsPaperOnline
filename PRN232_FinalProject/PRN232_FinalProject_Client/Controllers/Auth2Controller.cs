@@ -39,6 +39,7 @@ namespace PRN232_FinalProject_Client.Controllers
                     // Lấy FullName từ token
                     var fullName = JwtHelper.GetClaimFromToken(tokenResponse.Token, "FullName");
                     var userId = JwtHelper.GetClaimFromToken(tokenResponse.Token, ClaimTypes.NameIdentifier);
+                    var role = JwtHelper.GetClaimFromToken(tokenResponse.Token, ClaimTypes.Role);
                     // Lưu vào ClaimsPrincipal
                     var claims = new List<Claim>
                 {
@@ -47,6 +48,12 @@ namespace PRN232_FinalProject_Client.Controllers
                     if (!string.IsNullOrEmpty(fullName))
                     {
                         claims.Add(new Claim(ClaimTypes.Name, fullName));
+                    }
+                    if (!string.IsNullOrEmpty(role))
+                    {
+                        // 2. Thêm claim vai trò vào danh sách claims
+                        // Đảm bảo giá trị của 'role' ở đây khớp với "Lecturer" hoặc "Staff" (case-sensitive)
+                        claims.Add(new Claim(ClaimTypes.Role, role));
                     }
                     if (!string.IsNullOrEmpty(userId))
                     {
@@ -116,11 +123,18 @@ namespace PRN232_FinalProject_Client.Controllers
             ViewBag.ErrorMessage = "Bạn không có quyền truy cập vào trang này.";
             return View("AccessDenied", "Bạn không có quyền xem hồ sơ này.");
         }
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout() // Đổi thành async Task<IActionResult>
         {
+            // 1. Xóa Authentication Cookie (nơi chứa các claims)
+            // Đây là bước QUAN TRỌNG NHẤT để đăng xuất người dùng
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // 2. Xóa các Session variables (nếu bạn vẫn muốn lưu trữ JWT và FullName trong Session)
+            // Mặc dù đã chuyển sang dùng Claims, nếu bạn vẫn cần JWT/FullName trong Session vì lý do nào đó,
+            // thì bước này vẫn có thể cần thiết. Tuy nhiên, nếu bạn đã dùng Claims hoàn toàn
+            // cho việc hiển thị FullName trên UI như đã thảo luận, thì Session cho FullName là không cần nữa.
             _httpContextAccessor.HttpContext?.Session.Remove("JWT");
             _httpContextAccessor.HttpContext?.Session.Remove("FullName");
-
 
             return RedirectToAction("Login");
         }
