@@ -21,7 +21,7 @@ namespace GrpcMicroservice.Services
         {
             var response = new MostLikedArticlesResponse();
             IQueryable<Article> query = _context.Articles
-                                        .Where(a=> a.IsDeleted == false);
+                                        .Where(a=> a.IsDeleted == false && a.Status.Equals("Published"));
 
             // Áp dụng bộ lọc ngày nếu có
             if (!string.IsNullOrEmpty(request.StartDate) && DateTime.TryParse(request.StartDate, out DateTime startDate))
@@ -58,7 +58,7 @@ namespace GrpcMicroservice.Services
         {
             var response = new MostViewedArticlesResponse();
             IQueryable<Article> query = _context.Articles
-                                            .Where(a =>  a.IsDeleted == false); // Chỉ bài đã xuất bản và không bị xóa
+                                            .Where(a =>  a.IsDeleted == false && a.Status.Equals("Published")); // Chỉ bài đã xuất bản và không bị xóa
 
             // Áp dụng bộ lọc ngày nếu có
             if (!string.IsNullOrEmpty(request.StartDate) && DateTime.TryParse(request.StartDate, out DateTime startDate))
@@ -93,7 +93,7 @@ namespace GrpcMicroservice.Services
         public override async Task<TotalArticleViewsResponse> GetTotalArticleViews(TotalArticleViewsRequest request, ServerCallContext context)
         {
             IQueryable<Article> query = _context.Articles
-                                            .Where(a=> a.IsDeleted == false);
+                                            .Where(a=> a.IsDeleted == false&& a.Status.Equals("Published"));
 
             if (!string.IsNullOrEmpty(request.StartDate) && DateTime.TryParse(request.StartDate, out DateTime startDate))
             {
@@ -494,7 +494,7 @@ namespace GrpcMicroservice.Services
                         Content = article.Content,
                         ImageUrl = article.ImageUrl ?? string.Empty,
                         AuthorId = article.AuthorId,
-                        AuthorName = article.Author?.UserName ?? "Unknown", // Đảm bảo lấy được tên tác giả
+                        AuthorName = article.Author?.FullName ?? "Unknown", // Đảm bảo lấy được tên tác giả
                         CategoryName = article.Category?.Name ?? "N/A",
                         CreatedAt = article.CreatedAt.HasValue ? article.CreatedAt.Value.ToString("o") : string.Empty,
                         PublishedDate = article.PublishedDate.HasValue ? article.PublishedDate.Value.ToString("o") : string.Empty,
@@ -521,6 +521,7 @@ namespace GrpcMicroservice.Services
                 var articles = await _context.Articles
                                             .Include(a => a.Category)
                                             .Include(a => a.Tags)
+                                            .Include(a => a.Author) // <-- Đảm bảo bao gồm Author để lấy tên tác giả
                                             .Where(c=>c.IsDeleted==false ) // <-- LỌC CÁC BÀI VIẾT CHƯA BỊ XÓA
                                             .ToListAsync();
                 list.Articles.AddRange(articles.Select(a => new ArticleResponse
@@ -529,6 +530,7 @@ namespace GrpcMicroservice.Services
                     Title = a.Title,
                     Content = a.Content,
                     AuthorId = a.AuthorId,
+                    AuthorName = a.Author?.FullName ?? "Unknown", // <-- TRẢ VỀ TÊN TÁC GIẢ
                     CreatedAt = a.CreatedAt.HasValue ? a.CreatedAt.Value.ToString("o") : string.Empty,
                     ImageUrl = a.ImageUrl ?? string.Empty,
                     CategoryName = a.Category?.Name ?? "N/A", // <-- TRẢ VỀ TÊN DANH MỤC
@@ -568,6 +570,7 @@ namespace GrpcMicroservice.Services
                 CreatedAt = article.CreatedAt.HasValue ? article.CreatedAt.Value.ToString("o") : string.Empty,
                 ImageUrl = article.ImageUrl ?? string.Empty,
                 CategoryName = article.Category?.Name ?? "N/A", // <-- TRẢ VỀ TÊN DANH MỤC
+                CategoryId = article.CategoryId, // <-- TRẢ VỀ ID DANH MỤC
                 Tags = { article.Tags.Select(t => t.Name).ToList() } // <-- TRẢ VỀ DANH SÁCH TAG
             };
         }

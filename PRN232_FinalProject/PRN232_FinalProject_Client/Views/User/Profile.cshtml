@@ -35,7 +35,7 @@ else
     <form asp-action="UpdateProfile" asp-controller="User" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-4 text-center">
-                <img id="previewImage" src="@Model.Image" alt="Ảnh đại diện" class="img-fluid rounded-circle mb-3" style="max-width: 200px;" />
+                <img id="previewImage" src="@(string.IsNullOrEmpty(Model.Image) ? "/images/0d64989794b1a4c9d89bff571d3d5842.jpg" : Model.Image)" alt="Ảnh đại diện" class="img-fluid rounded-circle mb-3" style="max-width: 200px;" />
 
                 <input type="file" name="ImageFile" class="form-control-file" />
             </div>

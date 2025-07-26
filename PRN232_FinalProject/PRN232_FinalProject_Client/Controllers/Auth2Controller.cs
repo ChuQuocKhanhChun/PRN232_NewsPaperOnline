@@ -74,7 +74,7 @@ namespace PRN232_FinalProject_Client.Controllers
                         _httpContextAccessor.HttpContext.Session.SetString("FullName", fullName);
                     }
 
-                    return RedirectToAction("Index", "Article");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError("", "Đăng nhập thất bại.");

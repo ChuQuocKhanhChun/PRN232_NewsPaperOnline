@@ -245,7 +245,7 @@ namespace PRN232_FinalProject_Client.Controllers
                 model.ImageUrl = articleResponse.ImageUrl;
                 model.CategoryId = articleResponse.CategoryId;
 
-                
+
                 var allTagsResponse = await _articleClient.GetAllTagsAsync(new Empty());
                 var allTagsMap = allTagsResponse.Tags.ToDictionary(t => t.Name, t => t.Id);
 
@@ -253,6 +253,7 @@ namespace PRN232_FinalProject_Client.Controllers
                                             .Where(tagName => allTagsMap.ContainsKey(tagName))
                                             .Select(tagName => allTagsMap[tagName])
                                             .ToList();
+
 
                 await LoadCategoriesAndTagsIntoViewModel(model); // Gọi hàm mới
             }
